@@ -1,0 +1,176 @@
+<include file="./admin/themes/simplebootx/Agent/header.html" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.zclip.min.js"></script>
+
+<!--右侧-->
+<div class="right_content">
+	
+		<div class="s_g_top">
+		<thead>
+
+					<tr>
+
+						<th><button class="btn btn-warning btn-small js-articles-move" type="button" style="background-color: #f4a425; padding: 2px 12px;color: #fff;">设置推广</button></th>
+
+					</tr>
+
+				</thead>
+
+			<div class="search_box">
+				<form id="frmSearch" method="get" action="/Manager/membergamelist">
+					<input type="text" class="s_g_text" id="game_name_s" 
+					style='width: 200px;'
+						name="game_name_s" value=""
+						onFocus="if(this.value=='请输入要搜索的关键词'){this.value=''}"
+						onBlur="if(this.value==''){this.value='请输入要搜索的关键词'}"> 
+						<input type="submit" class="s_g_bt" value="搜索">
+				</form>
+			</div>
+		
+	</div>
+	<div class="s_g_table new_s_g_table js-check-wrap">
+		<table cellpadding="0" cellspacing="0" width="100%" border="0">
+			<tr class="tr1">
+				<td class="td2"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x" style="height:20px;width:20px"></label></td>
+				<td class="td2">游戏名称</td>
+				<td class="td2">icon</td>
+				<td class="td4">分成类型</td>
+				<td class="td5">当前分成</td>
+
+				<td class="td7">详情</td>
+			</tr>
+			  <php>
+					$ratetype=array("1"=>"固定分成","2"=>"阶梯分成");
+				</php>
+				
+<foreach name="agent_games" item="vo">
+				
+						<tr>
+							<td class="td1" ><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.id}" title="ID:{$vo.id}" style="height:20px;width:20px"></td>
+
+				<td class="td1">{$vo.gamename}</td>
+				<td class="td2"><img src="http://img.moyx.cn/upload/logo/{$vo.icon}"></td>
+
+				<if condition=" 2 == $vo[rate_type]" >
+
+					<td class="td5">{$ratetype[2]}</td>
+
+					<td class="td5">具体请点设定分成</td>
+
+				<else />
+
+					<td class="td5">{$ratetype[1]}</td>
+
+					<td class="td5">{$vo[agent_rate]*100|number_format=2}%</td>
+
+				</if>
+
+
+				
+				<td class="td7">
+					<a href="javascript:open_iframe_dialog('{:U('Agent/Manager/setrate',array('agentid'=>$agent_id,'ids'=>$vo['id']))}','分成设置')">分成详情</a>
+
+				</td>
+			</tr>
+			
+</foreach>			
+
+					</table>
+
+	</div>
+	
+    <script src="/public/js/artDialog/artDialog.js"></script>
+    <script src="/public/js/artDialog/iframeTools.js"></script>
+    
+
+    <link href="__PUBLIC__/simpleboot/css/simplebootadmin.css" rel="stylesheet">
+
+    <link href="__PUBLIC__/js/artDialog/skins/default.css" rel="stylesheet" />
+
+    <link href="__PUBLIC__/simpleboot/font-awesome/4.4.0/css/font-awesome.min.css"  rel="stylesheet" type="text/css">
+
+
+	<script src="__PUBLIC__/js/common2.js"></script>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>   
+
+	<script>
+function open_iframe_dialog(url, title, options) {
+	var params = {
+		title : title,
+		lock : true,
+		opacity : 0,
+		height : "70%",
+		width : "60%"
+	};
+	params = options ? $.extend(params, options) : params;
+	
+		art.dialog.open(url, params);
+	
+}
+
+
+$('.js-articles-move').click(function(e) {
+	
+var str = 0;
+
+					var id = tag = '';
+
+					$("input[name='ids[]']").each(function() {
+
+						if ($(this).attr('checked')) {
+
+							str = 1;
+
+							id += tag + $(this).val();
+
+							tag = ',';
+
+						}
+
+					});
+					
+						if (str == 0) {
+							
+							alert('您没有勾选信息，无法进行操作！');
+					}else{
+						
+						
+						 $.post("http://tg.moyx.cn/Manager/jsmenbergame",{"id":id},function(data){
+        if(data.code=="OK"){
+        	 alert(data.msg);
+          location.reload(true);
+        }else{
+        	
+            alert(data.msg);
+        }
+    },'json');
+    
+    
+						}
+					
+});
+
+
+	
+
+	</script>
+
+
+	<!--页码-->
+	<div class="newyiiPager">
+
+		<ul id="yw0" class="yiiPager">
+			      {$Page}
+		</ul>
+
+	</div>
+	
+
+</div>
+
+ </div>
+
+<include file="./admin/themes/simplebootx/Agent/footer.html" />
+ 

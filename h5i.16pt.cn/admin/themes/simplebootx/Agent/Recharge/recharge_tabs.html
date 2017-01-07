@@ -1,0 +1,38 @@
+<ul id="player_charge">
+    <li id='recharge_member'><a href="{:U('Agent/Recharge/MemberRechargePtb')}">给玩家充值</a></li>
+    <switch name="user_type">
+        <case value="agent">
+            <li id='recharge_sub'><a href="{:U('Agent/Recharge/AgentRechargePtb')}">给下级渠道充值</a></li>
+        </case>
+    </switch>
+	<li style="background-color:#65dc65">渠道账户余额：<span>{$agent_ptb_remain}</span></li>
+</ul>
+<style>
+#player_charge{
+	/*float:left;
+*/}
+#player_charge:after{
+	content:"";
+	display:table;
+	clear:both;
+}
+	#player_charge li{
+		float:left; 
+		height:40px;
+		line-height:40px;
+		padding:5px 20px;
+		font-size:18px;
+		transform:translateY(2px);
+	}
+	#player_charge li.active{
+		border-bottom:2px solid green;
+	}
+#player_charge li:first-child{
+		border-bottom:2px solid green;
+	}
+</style>
+<script>
+    var current_tab="{:I('path.1')}";   
+    $("#"+current_tab).addClass("on");
+   // $("#player_charge>li").eq(0).addClass("active");
+</script>

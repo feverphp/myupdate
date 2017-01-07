@@ -1,0 +1,84 @@
+<agenttpl file="user_center_header" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+<script src="__PUBLIC__/agent/js/subagent.js"></script>
+<section>
+<style>
+    .pop_up_form_div {
+        width:750px;
+        padding: 20px 20px 40px 20px ;
+    	background-color:#ffffff;
+    }
+    .pop_up_form_div .row{
+        width:350px;
+        margin:20px 0;
+        padding:0;
+        font-size:14px;
+    }
+    .pop_up_form_div .row:after{
+		clear:none;
+    }
+    
+    .pop_up_form_submit_btn{
+        width:350px;
+    }
+    input[disabled='disabled']{
+        background-color: #fff;
+        border-bottom:1px solid #ccc;
+    }
+    
+    .pop_up_form_div .input-group-addon{
+        width:100px;
+        font-size:14px;
+    }
+    .pop_up_form_div .input-group{
+        width:350px;
+    }
+</style>
+
+<div class="pop_up_form_div container" id='add_subagent' >
+            <div class="row">
+                <div class="input-group ">
+                    <span class="input-group-addon">渠道名称</span>
+                    <input class="form-control" type="text" name="user_login" value="{$user_login}" readonly />
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="input-group ">
+                    <span class="input-group-addon">游戏名称</span>
+                    <input class="form-control" type="text" name="gamename" value="{$gamename}" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group ">
+                    <span class="input-group-addon">折扣设定</span>
+                    <input class="form-control" type="text" name="subagent_rate" value="{$subagent_rate}" placeholder="填写渠道游戏的折扣"/>
+                </div>
+            </div>
+            <div class="row">
+            	<input class="form-control" type="hidden" name="id" value="{$id}" />
+                <button class="btn btn-success pop_up_form_submit_btn" id='popup_submit_btn'>修改</button>
+            </div>
+        </div>
+</section>
+
+<script>
+$("#popup_submit_btn").click(function(){
+        var subagent_rate=$("#add_subagent input[name='subagent_rate']").val();
+        var gamename=$("#add_subagent input[name='gamename']").val();
+        var user_login=$("#add_subagent input[name='user_login']").val();
+        var id=$("#add_subagent input[name='id']").val();
+        $.post("{:U('Agent/SubAgent/SubAgentSetRatePost')}",{"id":id,"subagent_rate":subagent_rate},
+              function(data){
+        	console.log(data);
+                  if(data.status === 0){
+                      yxalert(data.msg);
+                      window.location.href=data.url;
+                  }else{
+                      yxalert(data.msg);
+                  }
+              });
+    });
+</script>
+
+<include file="./admin/themes/simplebootx/Agent/footer.html" />

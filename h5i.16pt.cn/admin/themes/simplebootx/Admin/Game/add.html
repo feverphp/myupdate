@@ -1,0 +1,291 @@
+<admintpl file="header" />
+<!-- 公用样式 -->
+		
+		<link href="__PUBLIC__/bootstrap-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="__PUBLIC__/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
+        <script src="__PUBLIC__/bootstrap-fileinput/js/fileinput_locale_zh.js" type="text/javascript"></script>
+        <script src="__PUBLIC__/bootstrap-fileinput/js/fileinput_locale_es.js" type="text/javascript"></script>
+
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Admin/Game/index')}">游戏列表</a></li>
+			<li class="active"><a href="{:U('Admin/Game/add')}">添加游戏</a></li>
+		</ul>
+	
+	<div class="wrap jj">
+		<div class="common-form">
+			<div id="kv-avatar-errors" class="center-block" style="width:800px;display:none"></div>
+			<form enctype="multipart/form-data"  class="form-horizontal J_ajaxForm" action="{:U('Admin/Game/add_post')}" method="post"> 
+				<fieldset>
+					<div class="control-group">
+							<label class="control-label">游戏名称:</label>
+						<div class="controls">
+							<input type="text" class="input" name="gamename" placeholder="请输入游戏名称">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">游戏类型</label>
+						<div class="controls">
+							<label class="radio inline" for="active_true">
+								<input type="radio" name="gclass" value="1" checked id="gclass" />网游
+							</label>
+							<label class="radio inline" for="active_true">
+								<input type="radio" name="gclass" value="2" id="gclass" />单机
+							</label>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">游戏标签</label>
+						<div class="controls">
+							<foreach name="gtypes"   key="k" item="v">
+							<label class="checkbox inline">
+							<input value="{$k}" type="checkbox" name="gtype[]">{$v}</label>
+							</foreach>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">游戏点击量:</label>
+							<div class="controls">
+									<input name="clicknum" type="text" placeholder="请输入游戏点击量">{$game.clicknum}</textarea>
+							</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">推荐星级:</label>
+							<div class="controls">
+									<input name="recommend_level" type="text" placeholder="请输入推荐星级">{$game.recommend_level}</textarea>
+									<span>星级规则：0就是0个星，1是一个星，以此类推,最多5星</span>
+							</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">SEO标题:</label>
+							<div class="controls">
+									<input name="seotitle" type="text" placeholder="请输入SEO标题">{$game.seotitle}</textarea>
+							</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">SEO关键字:</label>
+							<div class="controls">
+									<input name="seokey" type="text" placeholder="请输入SEO关键字">{$game.seokey}</textarea>
+							</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">SEO描述:</label>
+							<div class="controls">
+									<textarea name="seodesc"  rows="3" cols="60" style="resize:none;width:40%;" placeholder="请输入SEO描述">{$game.seodesc}</textarea>
+							</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">游戏地址:</label>
+							<div class="controls">
+									<textarea name="gameurl" rows="3" cols="60" style="resize:none;width:40%;" placeholder="请输入游戏地址"></textarea>
+							</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">游戏支付回调地址:</label>
+							<div class="controls">
+									<textarea name="payurl" rows="3" cols="60" style="resize:none;width:40%;" placeholder="请输入游戏支付回调地址"></textarea>
+							</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">游戏ICON:</label>
+						<div class="controls">
+							<label class="control-label" style="text-align:left">*文件格式为png、jpg</label>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">
+							  <div style="width:200px">
+								<input id="avatar" name="logo" type="file" class="file-loading">
+							</div>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">游戏背景:</label>
+						<div class="controls">
+							<label class="control-label" style="text-align:left">*文件格式为480*800的png、jpg图片</label>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">
+							  <div style="width:200px">
+								<input id="bg" name="bg" type="file" class="file-loading">
+							</div>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">游戏截图:</label>
+						<div class="controls">
+							<label class="control-label" style="width:300px;text-align:left">*请上传5张游戏截图,文件格式为png、jpg</label>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">
+							<div style="width:1000px">
+							 <input id="input-pt-br" name="screenshot[]" type="file" multiple class="file-loading">
+							 </div>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">游戏简介:</label>
+							<div class="controls">
+									<textarea name="content" rows="8" cols="60" style="resize:none;width:40%;" placeholder="请输入200字以内的简介"></textarea>
+							</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">当前状态</label>
+						<div class="controls">
+							<foreach name="gamestatus" key="k" item="v">
+								<php>$gs_select=$k==1 ?"checked":"";</php>
+								<label class="radio inline" for="active_true">
+								<input type="radio" name="gstatus" value="{$k}" {$gs_select}  id="gstatus">{$v}</input>
+								</label>
+							</foreach>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">渠道通道费:</label>
+						<div class="controls">
+							<input type="text" class="input" name="fee_rate" placeholder="默认分成范围为0-1">
+						</div>
+					</div>	
+					<div class="control-group">
+						<label class="control-label">渠道默认分成:</label>
+						<div class="controls">
+							<input type="text" class="input" name="agent_rate" placeholder="默认分成范围为0-1">
+						</div>
+					</div>
+					<!-- <div class="control-group">
+						<label class="control-label">是否白鹭平台</label>
+						<div class="controls">
+								<php>$egret_array=array('否','是');</php>
+								<foreach name="egret_array" key="k" item="v">
+								   <php>$is_select=$game['isegret']==$k ?"checked":"";</php>
+								   <label class="radio inline" for="active_true">
+								   <input type="radio" name="isegret" value="{$k}" {$is_select}  id="gstatus">{$v}</input>
+								   </label>
+							   </foreach>
+						</div>
+					</div> -->	
+					<div class="control-group">
+						<label class="control-label">游戏引擎类型</label>
+						<div class="controls">
+							   <label class="radio inline" for="active_true">
+								   <input type="radio" name="isegret" value="0" checked />普通游戏
+							   </label>
+							   <label class="radio inline" for="active_true">
+								   <input type="radio" name="isegret" value="1" />白鹭游戏
+							   </label>
+							   <label class="radio inline" for="active_true">
+								   <input type="radio" name="isegret" value="2" />layabox游戏
+							   </label>
+						</div>
+					</div>					
+				</fieldset>
+				<div class="form-actions">
+					<button type="submit"
+						class="btn btn-primary btn_submit J_ajax_submit_btn">添加</button>
+					<a class="btn" href="{:U('Admin/Game/index')}">返回</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+
+	<script>
+		$(function(){
+			$("#version").bind("blur",function(){
+				var version = $("#version").val();
+				var reg = /([0-9]{1}.){1,}[0-9]{1}$/; 
+				
+				if(version != null){
+					if(!reg.test(version)){
+					   $("#cmsg").html("格式不正确,数字小数点组合");
+					}else{
+						$("#cmsg").html("");	
+					}
+				}
+				
+			});
+		});
+
+		var btnCust = ''; 
+		$("#avatar").fileinput({
+			overwriteInitial: true,
+			maxFileSize: 1500,
+			showClose: false,
+			showCaption: false,
+			browseLabel: '',
+			removeLabel: '',
+			browseIcon: '<i class="fa fa-folder-open-o"></i>添加',
+			removeIcon: '<i class="fa fa-trash-o"></i>清除',
+			removeTitle: 'Cancel or reset changes',
+			elErrorContainer: '#kv-avatar-errors',
+			msgErrorClass: 'alert alert-block alert-danger',
+			defaultPreviewContent: '<img src="__PUBLIC__/bootstrap-fileinput/img/add_img.png" alt="Your Avatar" style="width:160px">',
+			layoutTemplates: {main2: '{preview} ' +  btnCust + ' {remove} {browse}'},
+			allowedFileExtensions: ["jpg", "png", "gif"]
+		});
+
+		var btnCust = ''; 
+		$("#bg").fileinput({
+			overwriteInitial: true,
+			maxFileSize: 1500,
+			showClose: false,
+			showCaption: false,
+			browseLabel: '',
+			removeLabel: '',
+			browseIcon: '<i class="fa fa-folder-open-o"></i>添加',
+			removeIcon: '<i class="fa fa-trash-o"></i>清除',
+			removeTitle: 'Cancel or reset changes',
+			elErrorContainer: '#kv-avatar-errors',
+			msgErrorClass: 'alert alert-block alert-danger',
+			defaultPreviewContent: '<img src="__PUBLIC__/bootstrap-fileinput/img/add_img.png" alt="" style="width:160px">',
+			layoutTemplates: {main2: '{preview} ' +  btnCust + ' {remove} {browse}'},
+			allowedFileExtensions: ["jpg", "png", "gif"]
+		});
+        
+		/*$("#input-pt-br").fileinput({
+			language: "zh",
+            showUpload: false,
+            maxFileCount: 5,
+            mainClass: "input-group-lg",
+			allowedFileExtensions: ["jpg","jpeg", "png", "gif"]
+        });*/
+		$("#input-pt-br").fileinput({
+			language: "zh",
+			uploadUrl: "",
+			maxFileCount: 5,
+			showUpload: false,
+			showCancel: false,
+			showCaption: false,
+			overwriteInitial: false,
+			dropZoneEnabled: false,
+			allowedFileExtensions: ["jpg","jpeg", "png", "gif"]
+		});
+	</script>
+	
+</body>
+
+</html>

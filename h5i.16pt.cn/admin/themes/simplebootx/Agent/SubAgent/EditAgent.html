@@ -1,0 +1,131 @@
+<agenttpl file="user_center_header" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+<script src="__PUBLIC__/agent/js/subagent.js"></script>
+
+<section>
+<style>
+    .pop_up_form_div {
+        width:380px;
+        padding: 20px 20px 40px 20px ;
+    }
+    .pop_up_form_div .row{
+        width:350px;
+        margin:20px 0;
+        padding:0;
+        font-size:14px;
+    }
+    .pop_up_form_div .row:after{
+		clear:none;
+    }
+    .pop_up_form_div input[type='text'],.pop_up_form_div input[type='password']{
+        /*width:280px;*/
+    }
+    .pop_up_form_submit_btn{
+        width:350px;
+    }
+    input[disabled='disabled']{
+        background-color: #fff;
+        border-bottom:1px solid #ccc;
+    }
+    
+    .pop_up_form_div .input-group-addon{
+        width:100px;
+        font-size:14px;
+    }
+    .pop_up_form_div .input-group{
+        width:350px;
+    }
+</style>
+
+<div class="pop_up_form_div container" id='add_subagent' >
+            <div class="row">
+                <div class="input-group ">
+                    <span class="input-group-addon">渠道名称</span>
+                    <input class="form-control" type="text" name="name" value="{$user_nicename}"/>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="input-group ">
+                    <span class="input-group-addon">渠道帐号</span>
+                    <input class="form-control" type="text" name="user_login" value="{$user_login}" />
+                </div>
+            </div>
+<!--            <div class="row">
+                <div class="input-group ">
+                    <span class="input-group-addon">手机</span>
+                    <input class="form-control" type="text" name="phone" />
+                </div>
+            </div>-->
+            
+<!--            <div class="row">
+                <div class="input-group ">
+                    <span class="input-group-addon">邮箱</span>
+                    <input class="form-control" type="text" name="email" />
+                </div>
+            </div>-->
+            <div class="row">
+                <div class="input-group ">
+                    <span class="input-group-addon">登录密码</span>
+                    <input class="form-control" type="password" name="pass" value="" placeholder="******"/>
+                </div>
+            </div>
+			<div class="row">
+                <div class="input-group ">
+                    <span class="input-group-addon">渠道分成设定</span>
+                    <input class="form-control" type=" text" name="subagent_rate" value="" placeholder="请输入渠道分成比例"/>
+                </div>
+            </div>
+            <div class="row">
+            	<input class="form-control" type="hidden" name="id" value="{$id}" />
+                <button class="btn btn-success pop_up_form_submit_btn" id='popup_submit_btn'>修改</button>
+            </div>
+        </div>
+</section>
+
+<style>
+.del_a{
+    color:red;
+}
+.del_a:hover{
+    color:red;
+}
+</style>
+<script>
+//function delsub(subid,uname){
+//
+//    var con=confirm("真的要删除下级渠道 【"+uname+"】 吗？");
+//
+//    if(!con){
+//       return; 
+//    }
+//    $.post("{:U('Agent/ucenter/delSub')}",{"subid":subid},function(data){
+//        if(data.error==='0'){
+//            location.reload();
+//        }else{
+//            yxalert(data.msg);
+//        }
+//    });
+//}
+
+$("#popup_submit_btn").click(function(){
+        var name=$("#add_subagent input[name='name']").val();
+//        var phone=$("input[name='phone']").val();
+//        var email=$("input[name='email']").val();
+        var pass=$("#add_subagent input[name='pass']").val();
+        var user_login=$("#add_subagent input[name='user_login']").val();
+        var id=$("#add_subagent input[name='id']").val();
+		var subagent_rate=$("#add_subagent input[name='subagent_rate']").val();
+        $.post("{:U('Agent/SubAgent/EditAgentPost')}",{"id":id,"user_login":user_login,"user_nicename":name,"pass":pass, 'subagent_rate':subagent_rate},
+              function(data){
+                  if(data.error==='0'){
+                      yxalert(data.msg);
+                      window.location.href=data.url;
+                  }else{
+                      yxalert(data.msg);
+                  }
+              });
+    });
+</script>
+
+<include file="./admin/themes/simplebootx/Agent/footer.html" />

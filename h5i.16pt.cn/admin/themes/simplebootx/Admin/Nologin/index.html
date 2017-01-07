@@ -1,0 +1,235 @@
+<admintpl file="header" />
+<!--<link href="/public/3rd/bootstrap/css/bootstrap.min.css" rel='stylesheet' />-->
+<script src='/public/3rd/bootstrap/js/bootstrap.min.js' type="text/javascript"></script>
+<script src='/public/3rd/layer/layer.js' type="text/javascript"></script>
+<script src='/public/huoshu/share.js' type="text/javascript"></script>
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="javascript:;">广告游戏列表</a></li>
+			<!--<li><a href="{:U('Admin/Message/add')}" target="_self">新增消息</a></li>-->
+		</ul>
+		<!-- <form class="well form-search" method="post" action="__SELF__">
+			内容： 
+			<input type="text" name="content" style="width: 200px;" value="{$formget.content}" placeholder="请输入搜索信息...">
+			<input type="submit" class="btn btn-primary" value="搜索" />
+		</form> -->
+            
+            <div class='page_funcs' style="margin:20px 0;">
+            <button class="btn btn-success" data-type='1' title='系统所有地方都能看到'>添加免登录的渠道</button>
+            <button class="btn btn-success" data-type='2' title='特定游戏能看到'>添加免登录的游戏</button>
+            <button class="btn btn-success" data-type='3' title='特定渠道能看到'>添加特定的渠道和游戏</button>
+            </div>
+            
+            
+		<form class="js-ajax-form" action="" method="post">
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th width="400">游戏名称</th>
+						<th>渠道名称</th>
+						<th>类型</th>
+                        <th>时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<php>$type=array('1'=>'渠道免登录','2'=>'游戏免登录','3'=>'特定游戏和渠道免登录');</php>
+				<foreach name="game_ads" item="vo" key="key">
+				<tr>
+					<td>{$key+1}</td>
+					<if condition="$vo['gamename'] neq ''">
+						<td>{$vo.gamename}</td>
+					<else />
+						<td>所有游戏</td>
+					</if>
+					<if condition="$vo['agentname'] neq ''">
+						<td>{$vo.agentname}</td>
+					<else />
+						<td>所有渠道</td>
+					</if>
+					<td>{$type[$vo[flag]]}</td>
+					<td>{$vo.create_time|date="Y-m-d", ###}</td>
+					<td>
+	                    <!--<a href="{:U('Admin/Message/edit',array('id'=>$vo['id']))}">编辑</a> |--> 
+	                    <a href="{:U('Admin/Nologin/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">删除</a>
+                    </td>
+				</tr>
+				</foreach>
+			</table>
+			<div class="pagination">{$Page}</div>
+		</form>
+	</div>
+    
+    
+    <style>
+        .popup_div input,.popup_div select{
+            width:280px;
+        }
+        .popup_div .popup_div_submit_btn{
+            width:300px;
+        }
+        .popup_div .row{
+           padding-left:20px;
+        }
+    </style>
+    
+<!--     <div class='container popup_div popup_div_1' style='display:none;width:300px;margin-top:20px;margin-bottom:20px;padding:20px;'>
+        <form class='popup_form' onsubmit='return false;'>
+            <input type='hidden' name='type' value='1' />
+        <div class='row'>
+            <div class='input-group'>
+                <span class='input-group-addon'>内容</span>
+                <input type='text' name='content' class='form-input' />
+            </div>
+        </div>
+        <div class='row'>
+            <div class='input-group'>
+                <span class='input-group-addon'>链接</span>
+                <input type='text' name='url' class='form-input' />
+            </div>
+        </div>
+        <div class='row'>
+            <button class='popup_div_submit_btn btn btn-success'>添加</button>
+        </div>
+        </form>        
+    </div> -->
+        
+
+        
+    <div class='container popup_div popup_div_1' style='display:none;width:300px;margin-top:20px;margin-bottom:20px;padding:20px;'>
+        <form class='popup_form' onsubmit='return false;'>
+            <input type='hidden' name='type' value='1' />
+        <div class='row'>
+            <div class='input-group'>
+                <span class='input-group-addon'>选择免登录的渠道</span>
+                    {$agent_select}
+            </div>
+        </div>
+
+        <div class='row'>
+            <button class='popup_div_submit_btn btn btn-success'>添加</button>
+        </div>
+        </form>        
+    </div>
+    
+    <div class='container popup_div popup_div_2' style='display:none;width:300px;margin-top:20px;margin-bottom:20px;padding:20px;'>
+        <form class='popup_form' onsubmit='return false;' >
+            <input type='hidden' name='type' value='2' />
+            <div class='row'>
+            <div class='input-group'>
+                <span class='input-group-addon'>选择免登录的游戏</span>
+                    {$app_select}
+            </div>
+        </div>
+        <div class='row'>
+            <button class='popup_div_submit_btn btn btn-success'>添加</button>
+        </div>
+        </form>        
+    </div>
+    
+    <div class='container popup_div popup_div_3' style='display:none;width:300px;margin-top:20px;margin-bottom:20px;padding:20px;'>
+        <form class='popup_form' onsubmit='return false;'>
+        <input type='hidden' name='type' value='3' />
+        <div class='row'>
+            <div class='input-group'>
+                <span class='input-group-addon'>选择游戏</span>
+                    {$app_select}
+            </div>
+        </div>
+        <div class='row'>
+            <div class='input-group'>
+                <span class='input-group-addon'>选择渠道</span>
+                    {$agent_select}
+            </div>
+        </div>
+        
+        <div class='row'>
+            <button class='popup_div_submit_btn btn btn-success'>添加</button>
+        </div>
+        </form>        
+    </div>
+    
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		function refersh_window() {
+			var refersh_time = getCookie('refersh_time');
+			if (refersh_time == 1) {
+				window.location = "{:U('Admin/Nologin/index',$formget)}";
+			}
+		}
+		setInterval(function() {
+			refersh_window();
+		}, 2000);
+		$(function() {
+			setCookie("refersh_time", 0);
+			Wind.use('ajaxForm', 'artDialog', 'iframeTools', function() {
+				//批量移动
+				$('.js-articles-move').click(function(e) {
+					var str = 0;
+					var id = tag = '';
+					$("input[name='ids[]']").each(function() {
+						if ($(this).attr('checked')) {
+							str = 1;
+							id += tag + $(this).val();
+							tag = ',';
+						}
+					});
+					if (str == 0) {
+						art.dialog.through({
+							id : 'error',
+							icon : 'error',
+							content : '您没有勾选信息，无法进行操作！',
+							cancelVal : '关闭',
+							cancel : true
+						});
+						return false;
+					}
+					var $this = $(this);
+					art.dialog.open("__ROOT__/index.php?g=Admin&m=Message&a=move&ids="+ id, {
+						title : "批量移动",
+						width : "80%"
+					});
+				});
+			});
+		});
+                
+//                $(".page_funcs button").each(function(index,btn){
+//                    $(btn).click(function(){
+//                        var title=$(this).text();
+//                        var type=$(this).attr("data-type");
+//                        console.log(title+" "+type);
+//                        huoshu.ui.popup_div(title,".popup_div_"+type);
+//                    });
+//                });
+                
+                $(".page_funcs button").click(function(){
+                    var title=$(this).text();
+                    var type=$(this).attr("data-type");
+                    huoshu.ui.popup_div(title,".popup_div_"+type);
+                });
+                
+                $(".popup_div_submit_btn").click(function(){
+                    var fm=$(this).parent(".row").parent(".popup_form");
+                    var data=fm.serialize();
+                    var url="{:U('Admin/Nologin/add_post')}";
+                    $.post(url,data,function(res){
+                        yxalert(res.msg);
+                        if(res.error==='0'){
+                            reload_delay();
+                        }
+                    });
+                });
+//                $("button[data-type='2']").click(function(){
+//                    huoshu.ui.popup_div("添加平台消息",".popup_div_2");
+//                });
+//                $("button[data-type='3']").click(function(){
+//                    huoshu.ui.popup_div("添加平台消息",".popup_div_3");
+//                });
+//                $("button[data-type='4']").click(function(){
+//                    huoshu.ui.popup_div("添加平台消息",".popup_div_4");
+//                });
+	</script>
+</body>
+</html>

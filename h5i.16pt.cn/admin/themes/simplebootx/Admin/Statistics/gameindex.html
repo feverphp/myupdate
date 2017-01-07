@@ -1,0 +1,74 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<!-- <ul class="nav nav-tabs">
+			<li class="active"><a href="javascript:;">所有文章</a></li>
+			<li><a href="{:U('AdminPost/add',array('term'=>empty($term['term_id'])?'':$term['term_id']))}" target="_self">添加文章</a></li>
+		</ul> -->
+		<form class="well form-search" method="post" action="{:U('Admin/Pay/gameindex')}">		 			 
+			<div class="search_type cc mb10">			
+				<div class="mb10">
+					<span class="mr20">
+						时间：
+						<input type="text" name="start_time" class="js-date" value="{$start_time|default=''}" style="width: 100px;"  autocomplete="off">
+						到
+						<input type="text" class="js-date" name="end_time" value="{$end_time}" style="width: 100px;" autocomplete="off"> &nbsp; &nbsp;
+						<input type="submit" class="btn btn-warning" name='date_time' value="搜索" />
+						<input type="submit" class="btn btn-warning" name='date_time' value="当天" />
+						<input type="submit" class="btn btn-warning" name='date_time' value="昨天" />
+						<input type="submit" class="btn btn-warning" name='date_time' value="当月" />
+						<input type="submit" class="btn btn-warning" name='date_time' value="上月" />
+						<input type="submit" class="btn btn-warning" name='date_time' value="总计" />
+						
+						
+					</span>
+				</div>
+			</div>
+		</form>
+		<form class="js-ajax-form" action="" method="post">		
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>游戏ID</th>
+						<th>游戏名称</th>
+						<th>充值金额（元）</th>
+						<th>充值次数</th>
+						<th>充值人数</th>
+						<th>最大单笔金额</th>
+						<th>最大单笔用户</th>
+						<th>活跃玩家数</th>
+						<th>新增玩家数</th>
+						<th>充值率</th>
+						<th>ARPU值</th>
+						<th>ARPPU值</th>
+					</tr>
+				</thead>
+				<foreach name="pays" item="vo">
+					<tr> 
+					    <td>{$vo['date']}</td>
+					    <td>{$games[$vo['appid']]}</td>
+						<td>{$vo['reg_cnt']}</td>
+						<td>{$vo['usercnt']}</td>
+						<td>{$vo['paycnt']}</td>
+						<td>{$vo['sumregmoney']}</td>
+						<td>{$vo['summoney']}</td>
+						<td>{$vo['sumregmoney']}</td>
+						<td>{$vo['summoney']}</td>
+						<td>{$vo['paycnt']/$vo['usercnt']*100|number_format=2}%</td>
+						<td>{$vo['sumregmoney']/$vo['reg_cnt']|number_format=2}</td>
+						<td>{$vo['summoney']/$vo['usercnt']|number_format=2}</td>
+						<td>{$vo['summoney']/$vo['paycnt']|number_format=2}</td>
+					</tr>
+				</foreach>
+
+			</table>
+			<div class="pagination">{$Page}</div>
+
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	
+</body>
+</html>

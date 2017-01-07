@@ -1,0 +1,54 @@
+﻿<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#">平台币发放记录</a></li>
+		</ul>
+		<form class="well form-search" method="post" action="{:U('Ptb/agentRecharge')}">
+			<div class="search_type cc mb10">
+				<div class="mb10">
+					<span class="mr20">
+					时间： 
+						<input type="text" class="js-date" name="start_time" value="{$formget.start_time|default=''}" style="width: 100px;"  autocomplete="off">-						
+						<input type="text" class="js-date" name="end_time" value="{$formget.end_time|default=''}" style="width: 100px;" autocomplete="off"> 
+					&nbsp; &nbsp;
+					订单号： 
+						<input type="text" name="order_id" style="width: 200px;" value="{$formget.order_id}"  placeholder="请输入订单号...">
+						&nbsp; &nbsp;
+					渠道账号： 
+						<input type="text" name="agentname" style="width: 200px;" value="{$formget.agentname}" placeholder="请输入注册渠道名称...">
+						&nbsp; &nbsp;
+						<input type="submit" class="btn btn-primary" value="搜索" />
+					</span>
+				</div>
+			</div>
+		</form>
+		
+		<form class="js-ajax-form" action="" method="post">
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th>充值时间</th>
+						<th>订单号</th>
+						<th>渠道账号</th>
+						<th>充值金额</th>
+						<th>获得平台币</th>
+					</tr>
+				</thead>
+				<foreach name="ptb_given_detail" item="vo">
+				<tr>
+					<td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+					<td>{$vo.order_id}</td>
+					<td>{$vo.agentname}</td>
+					<td>{$vo.money}</td>
+					<td>{$vo.ptb_cnt}</td>
+				</tr>
+				</foreach>
+			</table>
+			<div class="pagination">{$Page}</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

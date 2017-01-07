@@ -1,0 +1,197 @@
+<include file="./admin/themes/simplebootx/Agent/header.html" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+     
+<form id="frmC" method="post" action = "{:U('Manager/agent_post')}"  enctype="multipart/form-data">
+<!--右侧-->
+<div class="right_content">
+	<div class="c_info_table">
+		<table cellpadding="0" cellspacing="0" width="100%" border="0">
+			<tbody><tr>
+				<td class="td1">渠道ID</td>
+				<td class="td2"><span style="margin-left:35px;">{$agent.id}</span></td>
+			</tr>
+			<tr>
+				<td class="td1">渠道名称</td>
+				<td class="td2">
+					<!-- <span style="margin-left:35px;">{$agent.user_nicename}</span> -->
+					<input type="text" class="c_info_tx" name="user_nicename" value="{$agent.user_nicename}" disabled="">
+				</td>
+			</tr>
+			<tr>
+				<td class="td1">联系人</td>
+				<td class="td2"><input type="text" class="c_info_tx" name="linkman" value="{$agent.link_man}" disabled=""></td>
+			</tr>
+			<tr>
+				<td class="td1">手机号码</td>
+				<td class="td2"><input type="text" class="c_info_tx" name="tel" value="{$agent.mobile}" disabled=""></td>
+			</tr>
+			<tr>
+				<td class="td1">QQ号码</td>
+				<td class="td2"><input type="text" class="c_info_tx" name="qq" value="{$agent.qq}" disabled=""></td>
+			</tr>
+			<tr>
+				<td class="td1">渠道logo <span style="color:red">(188*63)</span></td>
+				<td class="td2">
+					<div style="text-align: left;margin-left:30px">
+						<input type="file"  name="avatar"  id="thumb" style="display:none">
+						<if condition="$agent.avatar eq ''">
+							<img src="{:H5WEBSITE}/__PUBLIC__/images/logo.jpg" id="thumb_preview" width="135" style="cursor: hand"  name="avatar" />
+						<else />
+							<img src="{:H5WEBSITE}/{$agent.avatar}" id="thumb_preview" width="135" style="cursor: hand"  name="avatar" />
+						</if>
+						<span style="color:red;margin-left:10px">(上传图片请点击图片)</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="td1">浮点图标 <span style="color:red">(80*80)</span></td>
+				<td class="td2">
+					<div style="text-align: left;margin-left:30px">
+						<input type="file"  name="float_icon"  id="thumb_icon" style="display:none">
+						<if condition="$agent.float_icon eq ''">
+							<img src="{:H5ISITE}/themes/simplebootx/Public/images/sdk/new/icon.png" id="thumb_preview_icon" width="135" style="cursor: hand"  name="float_icon" />
+						<else />
+							<img src="{:H5WEBSITE}/{$agent.float_icon}" id="thumb_preview_icon" width="135" style="cursor: hand"  name="float_icon" />
+						</if>
+						<!-- <input type="button" id="cancelimg" value="取消图片"> -->
+						<span style="color:red;margin-left:10px">(上传图片请点击图片)</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="td1">APP下载二维码 <span style="color:red">(120*120)</span></td>
+				<td class="td2">
+					<div style="text-align: left;margin-left:30px">
+						<input type="file"  name="app_url"  id="thumb_app" style="display:none">
+						<if condition="$agent.app_url eq ''">
+							<img src="{:H5WEBSITE}/public/web/images/wx.jpg" id="thumb_preview_app" width="135" style="cursor: hand"  name="app_url" />
+						<else />
+							<img src="{:H5WEBSITE}/{$agent.app_url}" id="thumb_preview_app" width="135" style="cursor: hand"  name="app_url" />
+						</if>
+						<!-- <input type="button" id="cancelimg" value="取消图片"> -->
+						<span style="color:red;margin-left:10px">(上传图片请点击图片)</span>
+					</div>
+				</td>
+			</tr>
+			<!-- <tr>
+				<td class="td1">网站</td>
+				<td class="td2"><input type="text" class="c_info_tx"  name="website" value="{$agent.user_url}" disabled=""></td>
+			</tr>
+			 
+			<tr>
+				<td class="td1">微信公众号</td>
+				<td class="td2"><input type="text" class="c_info_tx" name="channel_text" value="{$agent.wechat}" disabled=""></td>
+			</tr> -->
+		</tbody></table>
+	</div>
+	<div class="channel_bt">
+		<span>修改</span> <input type="submit" class="c_bt" value="保存" disabled="">
+	</div>
+</div>
+
+</form>
+
+ 
+ </div>
+<script>
+	var thumb=document.getElementById("thumb");
+	var thumb_preview=document.getElementById("thumb_preview");
+	thumb_preview.onclick=function(){
+		thumb.click();
+	}
+	function getObjectURL(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) { // basic
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) { // mozilla(firefox)
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) { // webkit or chrome
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	}
+	thumb.onchange=function(){
+		var objUrl = getObjectURL(thumb.files[0]) ;
+		if (objUrl) {
+			thumb_preview.setAttribute("src", objUrl);
+			thumb_preview.setAttribute("class", "fileImg");
+		}
+		if(document.body.getElementsByClassName("fileImg").length>1){
+			document.body.removeChild(document.getElementsByClassName("fileImg")[0])
+		}
+	}
+	
+	var cancelimg = document.getElementById("cancelimg");
+	cancelimg.onclick = function(){
+		thumb_preview.setAttribute("src","{:H5WEBSITE}/__PUBLIC__/images/logo.jpg");
+	}
+</script>
+<script>
+	var thumb_icon=document.getElementById("thumb_icon");
+	var thumb_preview_icon=document.getElementById("thumb_preview_icon");
+	thumb_preview_icon.onclick=function(){
+		thumb_icon.click();
+	}
+	function getObjectURL(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) { // basic
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) { // mozilla(firefox)
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) { // webkit or chrome
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	}
+	thumb_icon.onchange=function(){
+		var objUrl = getObjectURL(thumb_icon.files[0]) ;
+		if (objUrl) {
+			thumb_preview_icon.setAttribute("src", objUrl);
+			thumb_preview_icon.setAttribute("class", "fileImg");
+		}
+		if(document.body.getElementsByClassName("fileImg").length>1){
+			document.body.removeChild(document.getElementsByClassName("fileImg")[0])
+		}
+	}
+	
+	var cancelimg = document.getElementById("cancelimg");
+	cancelimg.onclick = function(){
+		thumb_preview_icon.setAttribute("src","{:H5WEBSITE}/__PUBLIC__/images/logo.jpg");
+	}
+</script>
+<script>
+	var thumb_app=document.getElementById("thumb_app");
+	var thumb_preview_app=document.getElementById("thumb_preview_app");
+	thumb_preview_app.onclick=function(){
+		thumb_app.click();
+	}
+	function getObjectURL(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) { // basic
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) { // mozilla(firefox)
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) { // webkit or chrome
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	}
+	thumb_app.onchange=function(){
+		var objUrl = getObjectURL(thumb_app.files[0]) ;
+		if (objUrl) {
+			thumb_preview_app.setAttribute("src", objUrl);
+			thumb_preview_app.setAttribute("class", "fileImg");
+		}
+		if(document.body.getElementsByClassName("fileImg").length>1){
+			document.body.removeChild(document.getElementsByClassName("fileImg")[0])
+		}
+	}
+	
+	var cancelimg = document.getElementById("cancelimg");
+	cancelimg.onclick = function(){
+		thumb_preview_icon.setAttribute("src","{:H5WEBSITE}/__PUBLIC__/images/logo.jpg");
+	}
+</script>
+ 
+<include file="./admin/themes/simplebootx/Agent/footer.html" />
+ 

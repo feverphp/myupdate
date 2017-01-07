@@ -1,0 +1,76 @@
+﻿<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('Admin/Card/memCard')}">玩家卡券列表</a></li>
+			<li><a href="{:U('Admin/Card/provide')}" target="_self">发放卡券</a></li>
+		</ul>
+
+		<form class="well form-search" method="post" action="{:U('Admin/Card/memCard')}">
+			<div class="search_type cc mb10">
+				<div class="mb10">
+					<span class="mr20">
+					卡券名： 
+						<input type="text" name="title" style="width: 200px;" value="{$formget.title}" placeholder="请输入卡券名">
+					玩家账户： 
+						<input type="text" name="username" style="width: 200px;" value="{$formget.username}" placeholder="请输入卡券名">
+					状态：<select name='status'>
+							<option value="0" >全部</option>
+							<option value="1" <if condition="$formget['status'] eq 1">selected</if>>未使用</option>
+							<option value="2" <if condition="$formget['status'] eq 2">selected</if>>已使用</option>
+						</select>
+					<br /><br />
+					玩家领取时间：
+						<input type="text" name="start_time" class="js-date" value="{$formget.start_time|default=''}"
+						style="width: 150px;" autocomplete="off">
+						- 
+						<input	type="text" class="js-date" name="end_time" value="{$formget.end_time}" style="width: 150px;"
+						autocomplete="off"> &nbsp; &nbsp;
+					<input type="submit" class="btn btn-primary" value="搜索" />
+					</span>
+				</div>
+			</div>
+		</form>
+		<form class="js-ajax-form" action="" method="post">
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>卡券名称</th>
+						<th>玩家账号</th>
+						<th>有效期开始时间</th>
+						<th>有效期结束时间</th>
+						<th>玩家领取时间</th>
+						<th>卡券状态</th>
+						<th>卡券是否过期</th>
+					</tr>
+				</thead>
+			
+				<foreach name="card_list" item="vo" key='k'>
+				<tr>
+					<td>{$k+1+$p}</td>
+					<td>{$vo.title}</td>
+					<td>{$vo.username}</td>
+					<td>{$vo.start_time}</td>
+					<td>{$vo.end_time}</td>
+					<td>{$vo.update_time}</td>
+					<if condition="$vo['status'] eq '未使用'" >
+						<td style="color:green">{$vo.status}</td>
+					<else />
+						<td style="color:red">{$vo.status}</td>
+					</if>
+					<if condition="$vo['flag'] eq '未过期'" >
+						<td style="color:green">{$vo.flag}</td>
+					<else />
+						<td style="color:red">{$vo.flag}</td>
+					</if>
+				</tr>
+				</foreach>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

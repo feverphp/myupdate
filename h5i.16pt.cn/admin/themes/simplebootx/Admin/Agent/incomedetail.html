@@ -1,0 +1,62 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<form class="well form-search" method="post" action="{:U('Admin/Agent/incomeDetail')}">
+			<div class="search_type cc mb10">
+				<div class="mb10">
+					<span class="mr20">
+						<input type="hidden" name="agent_id" value="{$formget.agent_id}"/>
+						开始时间：
+						<input id="start_time" type="text" name="start_time"
+							class="js-datetime" value="{$formget.start_time|default=''}"
+							style="width: 150px;" autocomplete="off">
+						- 结束时间：
+						<input id="end_time" type="text" class="js-datetime" name="end_time"
+							value="{$formget.end_time}" style="width: 150px;"
+							autocomplete="off">&nbsp;&nbsp;
+						<input type="submit" class="btn btn-primary" value="搜索" />&nbsp; &nbsp;
+					</span>
+				</div>
+			</div>
+		</form>
+		<form class="js-ajax-form" action="" method="post">
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">游戏名称</th>
+						<th width="50">玩家数量</th>
+						<th width="50">付费玩家数量</th>
+						<th width="50">累计流水</th>
+						<th width="50">分成比例</th>
+						<th width="50">累计分成</th>
+					</tr>
+				</thead>
+				<tr>
+					<td>总计</td>
+					<td>{$agent_reg_user_cnt_total}</td>
+					<td>{$agent_user_cnt_total}</td>
+					<td>{$agent_amount_cnt_total}</td>
+					<td></td>	
+					<td>{$agent_income_total|round=2}</td>	
+				</tr>
+				<tr>
+					<td style="color:red" colspan='6'>*以上总计为渠道总的玩家数量，付费玩家数量，累计流水，累计分成*</td>
+				</tr>
+				<foreach name="orders" item="vo">
+				<tr>
+					<td>{$vo.name}</td>
+					<td>{$vo.mem_game_cnt}</td>
+					<td>{$vo.user_cnt}</td>
+					<td>{$vo.amount_cnt}</td>
+					<td>{$vo.agent_rate|round=2}</td>	
+					<td>{$vo.income|round=2}</td>
+				</tr>
+				</foreach>
+			</table>
+			<div class="pagination">{$Page}</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

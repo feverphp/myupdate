@@ -1,0 +1,27 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+		<div class="wrap jj">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="javascript:;">平台币折扣设定</a></li>
+		</ul>
+		
+		<div class="common-form">
+			<form method="post" class="form-horizontal" action="{:U('Ptb/setDiscountPost')}">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">分享折扣设定:</label>
+						<div class="controls">
+							<input type="text" name="discount" value="{$share_discount}" placeholder="请填写分享折扣" />
+						</div>
+					</div>
+				</fieldset>
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn_submit">确认</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

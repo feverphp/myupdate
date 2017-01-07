@@ -1,0 +1,63 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+    <div class="wrap js-check-wrap">
+        <ul class="nav nav-tabs">
+            <li><a href="{:U('Admin/Wap/recommendGame',array('type'=>1))}" target="_self">本周推荐</a></li>
+            <li class="active"><a href="{:U('Admin/Wap/newGame',array('type'=>2))}" target="_self">最新游戏</a></li>
+            <li><a href="{:U('Admin/Wap/hotGame',array('type'=>3))}" target="_self">热门游戏</a></li>
+            <li><a href="{:U('Admin/Wap/classicalGame',array('type'=>4))}" target="_self">经典游戏</a></li>
+        </ul> 
+        
+        <form class="well form-search add_hotgame_form" method="post" action="{:U('Admin/Wap/GamePost')}">
+            <div class="search_type cc mb10">
+                <div class="mb10">
+                    <span class="mr20">
+                                                           添加最热游戏： 
+                        <select class="select_2" name="app_id" id="selected_id">
+                            <foreach name="games" item="vo" key="k">
+                                <option value="{$k}"> {$vo} </option>
+                            </foreach>
+                        </select>
+                        <input type="hidden" name="type" value="{$type}" />
+                        <input type="submit" class="btn btn-primary add_hotgame_btn" value="添加" />
+                    </span>
+                </div>
+            </div>
+        </form>
+
+        <form class="js-ajax-form" action="{:U('Admin/Wap/listorders')}" method="post">
+        	<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit">{:L('SORT')}</button>
+			</div>
+            <table class="table table-hover table-bordered table-list">
+                <thead>
+                    <tr>
+                   	    <th width="80">{:L('SORT')}</th>
+                        <th width="50">游戏名称</th> 
+                        <th width="50">游戏图标</th>
+                        <th width="60">操作</th>
+                    </tr>
+                </thead>
+                <foreach name="datas" item="vo">
+                    <tr>
+                    	<td >
+                    		<input style="width:30px;" type="text" name="list_order[]" value="{$vo.list_order}" />
+                    		<input style="width:30px;" type="hidden" name="id[]" value="{$vo.id}" />
+                    	</td>
+                        <td>{$vo.name}</td>
+                        <td><img src="{$vo.icon}" width="50" /></td>
+                        <td>                                           
+                            <a href="{:U('Admin/Wap/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">删除</a>
+                        </td>
+                    </tr>
+                </foreach>				
+            </table>
+            <div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit">{:L('SORT')}</button>
+			</div>
+            <div class="pagination">{$Page}</div>
+        </form>
+    </div>
+</body>
+</html>

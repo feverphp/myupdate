@@ -1,0 +1,59 @@
+<include file="./admin/themes/simplebootx/Agent/header.html" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+<link href="/public/css/open-egret.css" rel="stylesheet">
+<link rel="stylesheet" href="/public/css/bootstrap.min.css">
+<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
+     
+<div class="right_content" style="width: 1075px;">	
+	<div class="d_c_time">
+		<form action="{:U('Manager/pay_details')}" method="post">
+			<span>时间：</span> 
+			<input id="start_date_s" type="text" class="Wdate" name="start_time" style="float: left;line-height: 30px;height: 30px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{$formget.start_time}"><em>~</em>
+			<input id="end_date_s" type="text" class="Wdate" name="end_time" style="float: left;line-height: 30px;height: 30px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{$formget.end_time}"> 
+								
+			<input type="submit" class="time_bt" value="搜索">
+		</form>
+	</div>
+	
+	<form class="js-ajax-form" action="" method="post">
+	<div class="s_g_table new_s_g_table">
+			<table cellpadding="0" cellspacing="0" width="100%" border="0">
+				<tbody>
+					<tr class="tr1">
+						<td width="50px">时间</td>
+						<td width="50px">玩家ID</td>
+						<td width="50px">玩家账号</td>
+						<td width="50px">所属渠道</td>
+						<td width="50px">游戏名称</td>
+						<td width="50px">购买商品</td>
+						<td width="50px">价值金额(元)</td>
+						<td width="50px">充值方式</td>
+						<td width="50px">订单号</td>
+						<td width="50px">状态</td>
+					</tr>
+					
+				<foreach name="ptbdata" item="vo">
+					<tr>
+						<td>{$vo.create_time|date="Y-m-d",###}</td>
+						<td>{$vo.mem_id}</td>
+						<td>{$vo.username}</td>
+						<td>{$vo.user_login}</td>
+						<td>{$vo.name}</td>
+						<td>{$vo.productname}</td>
+						<td>{$vo.amount}</td>
+						<td>{$vo.disc}</td>
+						<td>{$vo.orderid}</td>
+						<td>{$vo.status}</td>
+					</tr>
+				</foreach>
+				</tbody>
+			</table>
+
+			
+			<div class="pagination">{$Page}</div>
+		</form>
+	</div>
+ </div>
+ </div>
+<include file="./admin/themes/simplebootx/Agent/footer.html" />
+ 

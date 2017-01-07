@@ -1,0 +1,61 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap jj">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Admin/Card/index')}">卡券列表</a></li>
+			<li><a href="{:U('Admin/Card/add')}" target="_self">添加卡券</a></li>
+			<li class='active'><a href="javascript:;" >礼包编辑</a></li>
+		</ul>
+		<div class="common-form">
+			<form method="post" class="form-horizontal js-ajax-form" action="{:U('Admin/Card/editPost')}">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">卡券名称:</label>
+						<div class="controls">
+							<input type="text" class="input" name="title" value="{$title}" placeholder="请填写卡券名称" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">卡券码:</label>
+						<div class="controls">
+							<textarea id="code" rows="12" cols="75" style="resize:none;width:50%;color:#8B1A1A;" >{$code}</textarea>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">卡券金额:</label>
+						<div class="controls">
+							<input type="text" class="input" name="amount" value="{$amount}" placeholder="请填写卡券金额" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">兑换期限:</label>
+						<div class="controls">
+							<input type="text" name="start_time" class="js-datetime" value="{$start_time}" style="width: 100px;" autocomplete="off">--
+							<input type="text" class="js-datetime" name="end_time" value="{$end_time}" style="width: 100px;" autocomplete="off"> &nbsp; &nbsp;
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">是否可叠加使用:</label>
+						<div class="controls">
+							   <label class="radio inline" for="active_true">
+								   <input type="radio" name="is_repeat" value="1" <if condition="$is_repeat eq 1">checked</if> />否
+							   </label>
+							   <label class="radio inline" for="active_true">
+								   <input type="radio" name="is_repeat" value="2" <if condition="$is_repeat eq 2">checked</if> />是
+							   </label>
+						</div>
+					</div>
+					
+				</fieldset>
+				<div class="form-actions">
+					<input type="hidden" name="id" value="{$id}" />
+					<button type="submit" class="btn btn-primary btn_submit js_ajax_submit_btn">更新</button>
+					<a class="btn" href="{:U('Admin/Card/index')}">返回</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap jj">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Admin/Card/memCard')}">玩家卡券列表</a></li>
+			<li class="active"><a href="{:U('Admin/Card/provide')}" target="_self">发放卡券</a></li>
+		</ul>
+		<div class="common-form">
+			<form method="post" class="form-horizontal js-ajax-form" action="{:U('Admin/Card/providePost')}">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">卡券名称:</label>
+						<div class="controls">
+						<select name="card_id" >
+							<foreach name="cards" item="vo" key="key">
+								<option value="{$key}">{$vo}</option>
+							</foreach>
+						</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">玩家账户:</label>
+						<div class="controls">
+							<input type="text" class="input" id="username" name="username" value="" placeholder="请填写玩家账户" />
+							<span id="msg"></span>
+						</div>
+					</div>
+				</fieldset>
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn_submit js_ajax_submit_btn">发放</button>
+					<a class="btn" href="{:U('Admin/Card/memCard')}">返回</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		$(function(){
+			$("#username").blur(function(){
+				var username=$(this).val();
+				var url = "{:U('Card/CheckUserName')}";
+				$.post(url, {'username':username}, function(data){
+					if (data.status === 0) {
+						$('#msg').html(data.info);
+						$('#msg').css('color', 'red');
+					} else {
+						$("#msg").html('');
+					}
+				})				
+			})
+
+		})
+	</script>
+</body>
+</html>

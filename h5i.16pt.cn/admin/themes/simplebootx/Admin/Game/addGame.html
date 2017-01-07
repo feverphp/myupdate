@@ -1,0 +1,86 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap jj">
+		<ul class="nav nav-tabs">
+			<li ><a href="{:U('Admin/Game/index')}">游戏列表</a></li>
+			<li class="active"><a href="{:U('Admin/Game/addGame')}">添加游戏</a></li>
+		</ul>
+		<div class="common-form">
+			<form method="post" class="form-horizontal J_ajaxForm" action="{:U('Admin/Game/addGame_post')}">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">游戏名称:</label>
+						<div class="controls">
+							<input type="text" class="input" name="gamename" value="">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">游戏类型:</label>
+						<div class="controls">
+							<input type="text" class="input" name="versions" value="">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">游戏地址:</label>
+						<div class="controls">
+							<input type="text" class="input" name="gamename" value="">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">游戏标签:</label>
+						<div class="controls">
+							<input type="text" class="input" name="gamename" value="">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">游戏icon:</label>
+						<div class="controls">
+							<input type="text" class="input" name="versions" value="">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">图片:</label>
+						<div class="controls">
+							<input type="text" class="input" name="versions" value="">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">游戏简介:</label>
+						<div class="controls">
+							<input type="text" class="input" name="versions" value="">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">当前状态</label>
+						<div class="controls">
+							<foreach name="roles" item="vo">
+							<label class="checkbox inline"><input value="{$vo.id}" type="checkbox" name="user_type[]">{$vo.name}</label>
+							</foreach>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">游戏默认分成:</label>
+						<div class="controls">
+							<input type="text" class="input" name="game_rate" value="">
+						</div>
+					</div>	
+					<div class="control-group">
+						<label class="control-label">渠道默认分成:</label>
+						<div class="controls">
+							<input type="text" class="input" name="agent_rate" value="">
+						</div>
+					</div>					
+				</fieldset>
+				<div class="form-actions">
+					<button type="submit"
+						class="btn btn-primary btn_submit J_ajax_submit_btn">添加</button>
+					<a class="btn" href="__URL__">返回</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	
+</body>
+</html>

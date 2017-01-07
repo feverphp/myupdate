@@ -1,0 +1,52 @@
+<include file="./admin/themes/simplebootx/Agent/header.html" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+     <script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
+<div class="right_content">
+	
+	<div class="d_c_time">
+		<form action="{:U('Manager/statistics')}" method="post">
+			<span>时间：</span> 
+			<input id="start_date_s" type="text" class="Wdate" name="start_time" value="{$formget.start_time}"
+			style="float: left;line-height: 30px;height: 30px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" ><em>~</em>
+			<input id="end_date_s" type="text" class="Wdate" name="end_time" value="{$formget.end_time}"
+			style="float: left;line-height: 30px;height: 30px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"> 
+								
+			<input type="submit" class="time_bt" value="搜索">
+			&nbsp; &nbsp; 
+				<input type="submit" class="btn btn-primary" name="date_time" value="当天">&nbsp; &nbsp; 
+				
+			<input type="submit" class="btn btn-primary" name="date_time" value="昨天">&nbsp; &nbsp; 
+				
+			<input type="submit" class="btn btn-primary" name="date_time" value="当月">&nbsp; &nbsp; 
+				
+			<input type="submit" class="btn btn-primary" name="date_time" value="上月">&nbsp; &nbsp; 
+			<input type="submit" class="btn btn-primary" name="date_time" value="总计">
+		</form>
+		
+	</div>
+	<form class="js-ajax-form" action="" method="post">
+	<div class="s_g_table new_s_g_table">
+			<table cellpadding="0" cellspacing="0" width="100%" border="0">
+				<tbody>
+					<tr class="tr1">
+						<td class="td2">游戏</td>
+						<td class="td2">流水</td>
+					</tr>
+				<foreach name="list" item="vo">
+				<tr>
+				<td>{$vo.name}</td>
+				<td>{$vo.summoney}</td>
+				</tr>
+				</foreach>
+				</tbody>
+			</table>
+
+			
+			<div class="pagination">{$Page}</div>
+		</form>
+	</div>
+</script> 
+ </div>
+</div>
+<include file="./admin/themes/simplebootx/Agent/footer.html" />
+ 

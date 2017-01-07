@@ -1,0 +1,88 @@
+<agenttpl file="user_center_header" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+<script src="__PUBLIC__/agent/js/subagent.js"></script>
+<style>
+.table-content{
+	margin-top:20px;
+	border-top:2px solid green;
+}
+	.table-content td{
+		border-top:1px dotted #ddd !important;
+	}
+	.table-content tr:last-child td{
+	border-bottom:1px dotted #ddd !important;
+	}
+</style>
+<section style="float:left;margin-left:50px;background-color:#fff;min-height:550px;padding:20px;box-sizing:border-box;">
+    <div class="user_center main">
+        <div class="banner_1">
+            
+        </div>
+        <div class="user_center_main page-content">
+            <agenttpl file="share/side" />
+            <div class="page-right my-game query-records lower-channel-management">
+                <style>
+                    #queryForm .row .col-md-4{
+                        text-align:center;
+                    }
+                </style>
+                <form id="queryForm" action="__SELF__" method="get">
+                    <div class="container" style="width:960px;margin-top:20px;margin-bottom:20px;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon">渠道帐号</span>
+                                    <input class="form-control" name="user_login" type="text" placeholder="" value="{$formget.user_login}" />
+                                </div>
+                            </div>
+                             <div class="col-md-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon">游戏名称</span>
+                                    <input class="form-control" name="gamename" type="text" placeholder="" value="{$formget.gamename}" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-success">搜索</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="search-results">
+                    <div class="table-content">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th width="80">序号</th>
+                                    <th width="110">子渠道帐号</th>
+                                    <th width="110">游戏名称</th>
+                                    <th width="110">子渠道分成</th>
+                                    <th width="130">创建时间</th>
+                                    <th width="110">操作</th>
+                                </tr>
+
+                                <volist name="items" id="vo" key="key">
+                                    <tr class="even">
+                                        <td>{$key+($p-1)*10}</td>
+                                        <td>{$vo.user_login}</td>
+                                        <td>{$vo.gamename}</td>
+                                        <td>{$vo.subagent_rate}</td>
+                                        <td>{$vo.update_time}</td>
+                                        <td><a href="{:U('SubAgent/SubAgentSetRate',array('id'=>$vo['id']))}">编辑</a></td>                                   
+                                    </tr>
+                                </volist>                           
+                            </tbody>
+                        </table>
+
+                        <div class="page" style="">
+                            <div class="paging">
+                               {$Page}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<agenttpl file="user_center_footer" />

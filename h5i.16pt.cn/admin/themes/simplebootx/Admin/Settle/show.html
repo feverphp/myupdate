@@ -1,0 +1,103 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Admin/Settle/index')}">结算记录</a></li>
+			<li class="active"><a href="#" target="_self">结算详单</a></li>
+		</ul>
+		<form enctype="multipart/form-data"   class="form-horizontal js-ajax-form" action="" method="post"> 
+			<div class="row-fluid">
+				<div class="span9">
+					<table class="table table-bordered">
+						<tr>
+							<td>序号</td>
+							<td>{$id}</td>
+						</tr>
+						<tr>
+							<td>渠道编号</td>
+							<td>{$agent_id}</td>
+						</tr>
+						<tr>
+							<td>渠道账号</td>
+							<td>{$agentname}</td>
+						</tr>
+						<tr>
+							<td>结算金额</td>
+							<td>{$money}</td>
+						</tr>
+						<tr>
+							<td>银行名称</td>
+							<td>{$bankname}</td>
+						</tr>
+						<tr>
+							<td>持卡人</td>
+							<td>{$cardholder}</td>
+						</tr>
+						<tr>
+							<td>卡号</td>
+							<td>{$banknum}</td>
+						</tr>
+						<tr>
+							<td>申请时间</td>
+							<td>{$create_time|date="Y-m-d H:i:s", ###}</td>
+						</tr>
+						<tr>
+							<td>状态</td>
+							<td>
+							<foreach name="st_status"  key="k" item="vo">
+								<php>$pt_select=$k==$status ?"checked":"";</php>
+								<label class="radio inline" >
+									<input type="radio" name="status" value="{$k}" {$pt_select} id="status" />{$vo}
+								</label>
+							</foreach>
+							</td>
+						</tr>
+						<if condition="4 == $status OR 5 == $status">
+							<tr>
+								<td>失败原因</td>
+								<td>
+								{$failreason}
+								</td>
+							</tr>
+							<tr>
+								<td>是否返还金额</td>
+								<td>
+									<if condition = "$is_return eq 2">
+									<label class="radio inline" >
+										<input type="radio" name="is_return" value="2" checked id="is_return" />是
+									</label>
+									<label class="radio inline" >
+										<input type="radio" name="is_return" value="1"  id="is_return" />否
+									</label>
+									<elseif condition="$is_return eq 1"/>
+										<label class="radio inline" >
+											<input type="radio" name="is_return" value="2"  id="is_return" />是
+										</label>
+										<label class="radio inline" >
+											<input type="radio" name="is_return" value="1" checked id="is_return" />否
+										</label>
+									</if>
+								</td>
+							</tr>
+						</if>
+						
+						<tr>
+							<td>审核时间</td>
+							<td>{$check_time|date="Y-m-d H:i:s", ###}</td>
+						</tr>
+						<tr>
+							<td>结算时间</td>
+							<td>{$settle_time|date="Y-m-d H:i:s", ###}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="form-actions">
+				<a class="btn" href="{:U('Admin/Settle/index')}">返回</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

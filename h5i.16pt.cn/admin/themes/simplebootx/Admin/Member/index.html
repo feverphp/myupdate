@@ -1,0 +1,107 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#">玩家列表</a></li>
+		</ul>
+		<form class="well form-search" method="post" action="{:U('Admin/Member/index')}">
+			<div class="search_type cc mb10">
+				<div class="mb10">
+				
+					<span class="mr20">
+						注册时间：
+						<input type="text" name="start_time"
+							class="js-datetime" value="{$formget.start_time|default=''}"
+							style="width: 150px;" autocomplete="off">
+						- 
+						<input	type="text" class="js-datetime" name="end_time"
+							value="{$formget.end_time}" style="width: 150px;"
+							autocomplete="off"> &nbsp; &nbsp;
+						登录设备： 
+						<select class="select_2" name="login_device" id="login_device" style="width: 166px;">
+							<foreach name="login_devices"  key="k" item="vo">
+								<php>$ps_select=$vo==$formget['login_device'] ?"selected":"";</php>
+								<if condition="$vo eq '全部'">
+									<option value="0" {$ps_select}>{$vo}</option>
+								<else />
+									<option value="{$vo}" {$ps_select}>{$vo}</option>
+								</if>
+							</foreach>
+						</select>&nbsp; &nbsp;							
+					    账号： 
+						<input type="text" name="username" style="width: 100px;" value="{$formget['username']}" placeholder="请输入账号..."><br /><br />
+						性别：
+						<select class="select_2" name="sex" id="sex" style="width: 166px;">
+							<foreach name="sex_array"  key="k" item="vo">
+								<if condition="$formget['sex'] heq NULL ">
+									<option value="{$k}" {$ps_select}>{$vo}</option>
+								<else />
+									<php>$ps_select=$k==$formget['sex']+1 ?"selected":"";</php>
+									<option value="{$k}" {$ps_select}>{$vo}</option>								
+								</if>
+							</foreach>
+						</select>&nbsp; &nbsp;
+						注册渠道： 
+						<input type="text" name="agentname" style="width: 200px;" value="{$agentname}" placeholder="请输入渠道账号..." />&nbsp; &nbsp;
+						游戏： 
+						<input type="text" name="gamename" style="width: 250px;" value="{$gamename}" placeholder="请输入游戏名称..." />&nbsp; &nbsp;
+						<input type="submit" class="btn btn-primary" value="搜索" />
+					</span>
+				</div>
+			</div>
+		</form>
+
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>					
+					<th>序号</th>					
+					<th>注册时间</th>
+					<th>登陆设备</th>
+					<th>玩家ID</th>
+					<th>账号</th>
+					<th>昵称</th>
+					<th>性别</th>
+					<th>账号类型</th>
+					<th>注册渠道</th>			
+					<th>游戏</th>			
+					<th>玩家状态</th>
+					<th>登录IP</th>
+					<th>最近登录游戏</th>
+					<th>管理操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<php>$members_flag=array("1"=>"正常","2"=>"冻结");</php>
+				<foreach name="members" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.reg_time|date='Y-m-d  H:i:s',###}</td>
+					<td>{$vo.login_device}</td>
+					<td>{$vo.id}</td>
+					<td>{$vo.username}</td>
+					<td>{$vo.nickname}</td>
+					<td>{$sex_array[$vo['sex']+1]}</td>
+					<td>{$flag_array[$vo['flag']]}</td>
+					<td>{$agents.$vo[agent_id]}</td>
+					<td>{$games.$vo[app_id]}</td>
+					<td>{$members_flag.$vo[status]}</td>
+					<td>{$vo.last_login_ip}</td>
+					<td>{$games.$vo[last_app_id]}</td>
+					<td>
+						<a href='{:U("Member/edit",array("id"=>$vo["id"]))}'>编辑</a> | 
+						<if condition="$vo['status'] eq 1">
+								<a href="{:U('Admin/Member/ban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="您确定要禁用此玩家吗？">禁用</a>
+						<else />
+							<a href="{:U('Admin/Member/cancelban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="'您确定要启用此玩家吗？'">解禁</a>
+						</if>
+					</td>
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$Page}</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

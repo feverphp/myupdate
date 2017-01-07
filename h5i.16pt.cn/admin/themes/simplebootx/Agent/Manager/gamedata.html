@@ -1,0 +1,43 @@
+<include file="./admin/themes/simplebootx/Agent/header.html" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+     <script type="text/javascript" src="__PUBLIC__/js/WdatePicker.js"></script>
+<div class="right_content">
+	
+	<div class="d_c_time">
+		<form action="" method="post">
+			<span>时间：</span> 
+			<input id="start_date_s" type="text" class="Wdate" name="start_date_s" style="float: left;line-height: 30px;height: 30px;" onclick="WdatePicker({dateFmt:&#39;yyyy-MM-dd&#39;,maxDate:&#39;#F{$dp.$D(\&#39;end_date_s\&#39;)}&#39;})" value="2016-03-17"><em>~</em>
+			<input id="end_date_s" type="text" class="Wdate" name="end_date_s" style="float: left;line-height: 30px;height: 30px;" onclick="WdatePicker({dateFmt:&#39;yyyy-MM-dd&#39;,minDate:&#39;#F{$dp.$D(\&#39;start_date_s\&#39;)}&#39;})" value="2016-03-23"> 
+								
+			<input type="submit" class="time_bt" value="搜索">
+		</form>
+		
+	</div>
+	<form class="js-ajax-form" action="" method="post">
+	<div class="s_g_table new_s_g_table">
+			<table cellpadding="0" cellspacing="0" width="100%" border="0">
+				<tbody>
+					<tr class="tr1">
+						<td class="td2">日期</td>
+						<td class="td2">游戏</td>
+						<td class="td2">流水</td>
+					</tr>
+				<foreach name="orders" item="vo">
+				<tr>
+				<td>{$vo.date}</td>
+				<td>{$vo.game}</td>
+				<td>{$vo.money}</td>
+				</tr>
+				</foreach>
+				</tbody>
+			</table>
+
+			
+			<div class="pagination">{$Page}</div>
+		</form>
+	</div>
+</script> 
+ </div>
+ 
+<include file="./admin/themes/simplebootx/Agent/footer.html" />
+ 

@@ -1,0 +1,113 @@
+<include file="./admin/themes/simplebootx/Agent/header.html" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+     
+     <!--右侧-->
+<div class="right_content">
+	<div class="s_g_top">
+		<p class="p1">
+			<a href="javascript:;" onclick="add();">添加游戏</a>
+		</p>
+		<form id="frmSearch" method="post">
+			<div class="search_box">
+				<!--  <div class="select_out">
+					<select>
+								<option value="29">角色类</option>
+								<option value="31">动作类</option>
+								<option value="32">射击类</option>
+								<option value="33">休闲类</option>
+								<option value="34">体育类</option>
+								<option value="36">赛车类</option>
+								<option value="37">棋牌类</option>
+								<option value="39">冒险类</option>
+								<option value="41">测试类</option>
+								<option value="42">敏捷类</option>
+								<option value="43">益智类</option>
+								<option value="44">消除类</option>
+								<option value="45">策略类</option>
+								<option value="46">装扮类</option>
+								<option value="47">闯关类</option>
+								<option value="48">经营类</option>
+								<option value="49">微网游</option>
+									 </select>
+				</div>-->
+				<input type="text" class="s_g_text" value="请输入要搜索的关键词" id="keyword" name="keyword" onfocus="if(this.value==&#39;请输入要搜索的关键词&#39;){this.value=&#39;&#39;}" onblur="if(this.value==&#39;&#39;){this.value=&#39;请输入要搜索的关键词&#39;}"> <input type="submit" class="s_g_bt" value="搜索">
+			</div>
+		</form>
+	</div>
+	<div class="s_g_table new_s_g_table">
+		<table cellpadding="0" cellspacing="0" width="100%" border="0">
+			<tbody><tr class="tr1">
+				<td class="td2">游戏名称</td>
+				<td class="td2">icon</td>
+				<td class="td3">上线时间</td>
+				<td class="td4">是否收费</td>
+				<td class="td5">类别</td>
+				<td class="td4"><p>
+						官方人气
+						<!--  <span class="myup"></span><span class="mydown"></span>-->
+					</p></td>
+				<td class="td7">操作</td>
+			</tr>
+					</tbody></table>
+
+	</div>
+	<!--页码-->
+	<div class="newyiiPager">
+
+		<ul id="yw0" class="yiiPager">
+		<li>共0页：</li><li class="page"><a href="{:H5AGENTSITE}/manager/singlelist?page=1">首页</a></li><li class="previous"><a href="http://tg.moyx.cn/manager/singlelist?page=0">末页</a></li>		</ul>
+
+	</div>
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+function offline(gameid)
+{
+	$.post("/manager/offline",{gameid:gameid},function(data){
+         var result=$.parseJSON(data);
+         if(result.errcode==0)
+         {
+             	 alert("下线成功");
+             	 location.href="/manager/singlelist"
+         }
+    	 
+         else 
+        	 alert(result.msg); 
+		});
+}
+
+function add()
+{
+	 location.href="/manager/single";
+}
+ 
+$(function(){
+	 
+	$(".copyBtn").each(function(i){
+        var id = $(this).attr('data');
+        var clip=null;
+        clip = new ZeroClipboard.Client();
+        ZeroClipboard.setMoviePath( '/js/ZeroClipboard.swf' );  //和html不在同一目录需设置setMoviePath
+        
+        clip.setHandCursor( true );
+        clip.setText( $("#copy_txt"+id).val() );
+        clip.addEventListener('complete', function (client, text) {
+          alert( "恭喜复制成功" );
+        });
+        clip.glue( 'copy_btn'+id);
+  });
+
+ 
+	 
+})
+ 
+</script> 
+ </div>
+<include file="./admin/themes/simplebootx/Agent/footer.html" />
+ 

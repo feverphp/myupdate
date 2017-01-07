@@ -1,0 +1,103 @@
+<include file="./admin/themes/simplebootx/Agent/header.html" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+     
+<form id="frmC" method="post" action = "{:U('Manager/withdraw')}" enctype="multipart/form-data" >
+<!--右侧-->
+<div class="right_content">
+	<div class="c_info_table">
+		<table cellpadding="0" cellspacing="0" width="100%" border="0">
+			<tbody>
+				<tr>
+					<td>渠道编号:</td>
+					<td>{$agentid}</td>
+				</tr>
+				<tr>
+					<td>账号:</td>
+					<td>{$agentname}</td>
+				</tr>
+				<tr>
+					<td>总分成:</td>
+					<td>{$total_money|default=0}</td>
+				</tr>
+				<tr>
+					<td>当前余额:</td>
+					<td>{$remain_money|default=0}</td>
+				</tr>
+				<tr>
+					<td>提现金额:</td>
+					<td><input type="text" name="money" id="money"  placeholder="请输入提现金额"></td>
+				</tr>
+				<tr>
+					<td>上次申请提现时间:</td>
+					<empty name='last_time'>
+					<td>从未提现</td>
+					<else />
+					<td>{$last_time|date="Y-m-d H:i:s", ###}</td>
+					</empty>
+				</tr>
+
+		</tbody></table>
+	</div>
+	<div class="channel_bt" style="margin-top:-20px;    padding: 30px 2px 115px 96px;">
+		 <input type="submit" class="c_bt" value="提现">
+	</div>
+	</form>
+	
+
+
+<div class="c_info_table" style="margin-top:-100px">
+ <table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="60">序号</th>
+						<th width="200">申请时间</th>
+						<th width="100">渠道编号</th>
+						 
+						<th width="150">结算金额(元)</th>
+						<th width="120">银行名称</th>
+						<th width="120">持卡人</th>
+						<th width="300">卡号</th>
+						<th width="200">状态</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="txlist" item="vo">
+				<tr>
+
+					<td>{$vo.id}</td>
+
+					<td>{$vo.create_time|date="Y-m-d H:i:s", ###}</td>
+
+					<td>{$vo.agent_id}</td>
+
+					
+
+					<td>{$vo.money}</td>
+
+					<td>{$vo.bankname}</td>
+
+					<td>{$vo.cardholder}</td>
+
+					<td>{$vo.banknum}</td>
+
+					<td>{$st_status[$vo[status]]}</td>
+
+				</tr>
+
+				</foreach>
+			</tbody></table>
+  </div>
+  
+  
+  
+</div>
+  
+ </div>
+ 
+ 
+ 
+
+ 
+<include file="./admin/themes/simplebootx/Agent/footer.html" />
+ 

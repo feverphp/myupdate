@@ -1,0 +1,96 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('Admin/JfOrders/index')}">订单列表</a></li>
+			<li><a href="{:U('Admin/JfOrders/provider')}">实物物流信息列表</a></li>
+		</ul>
+		<form class="well form-search" method="post" action="{:U('Admin/JfOrders/index')}">
+			<div class="search_type cc mb10">
+				<div class="mb10">
+					<span class="mr20"> 
+					玩家账号： 
+					<input type="text" name="username"
+						style="width: 150px;" value="{$formget.username}"
+						placeholder="请输入玩家账号..."> 
+						&nbsp;&nbsp;
+					订单号： 
+					<input type="text" name="order_id" 
+						style="width: 150px;" value="{$formget.order_id}"
+						placeholder="请输入订单号..."> 
+					&nbsp;&nbsp;
+					商品名称： 
+					<input type="text" name="productname" 
+						style="width: 150px;" value="{$formget.productname}"
+						placeholder="请输入商品名称..."> 
+					 <br><br>
+					商品状态 ： 
+					<select class="select_2" name="shopstatuses" id="selected_id" style="width: 166px;">
+						<option value="0">---请选择---</option>
+						<foreach name="paystatuss"  key="k" item="vo">
+							<option value="{$k}" <if condition="$k eq $formget['shopstatuses']">selected</if>>{$vo}</option>
+						</foreach>
+					</select>				
+				&nbsp;&nbsp;
+				商品类型 ： 
+					<select class="select_2" name="shoptype" id="selected_id" style="width: 166px;">
+						<option value="0">---请选择---</option>
+						<foreach name="shoptypes"  key="k" item="vo">
+							<option value="{$k}" <if condition="$k eq $formget['shoptype']">selected</if>>{$vo}</option>
+						</foreach>
+					</select>				
+				&nbsp;&nbsp;
+				时间：
+					<input type="text" name="start_time"
+						class="js-date" value="{$formget.start_time|default=''}"
+						style="width: 80px;" autocomplete="off">
+					- 
+					<input	type="text" class="js-date" name="end_time"
+						value="{$formget.end_time}" style="width: 80px;"
+						autocomplete="off"> &nbsp; &nbsp; 
+					</span>
+			    <input type="submit"  name='submit' class="btn btn-primary" value="搜索" />
+				</div>
+			</div>
+		</form>
+		<form class="js-ajax-form" action="" method="post">
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th>序号</th>						
+						<th>时间</th>
+						<th>玩家账号</th>
+						<th>商品名称</th>	
+						<th>商品类型</th>	
+						<th>价值金额(元)</th>	
+						<th>订单号</th>
+						<th>状态</th>	
+						<th>操作</th>
+					</tr>
+				</thead>
+				<foreach name="items" item="vo" key="k">
+					<tr>
+						<td>{$k+1}</td>
+						<td>{$vo.update_time}</td>
+						<td>{$vo.username}</td>
+						<td>{$vo.productname}</td>
+						<td>{$vo.typename}</td>
+						<td>{$vo.cost}</td>
+						<td>{$vo.order_id}</td>
+						<td>{$vo.status}</td>
+						<td>
+							<if condition="$vo['type'] eq 3">
+								<a href="{:U('Admin/JfOrders/orderProvider'
+								 ,array('id'=>$vo['id'], 'product_id'=>$vo['product_id'], 'mem_id'=>$vo['mem_id']))}">编辑</a>
+							</if>
+						</td>
+					</tr>
+				</foreach>
+			</table>
+			<div class="pagination">{$Page}</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

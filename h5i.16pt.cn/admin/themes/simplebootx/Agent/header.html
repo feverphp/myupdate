@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- saved from url=(0021)http://tg.moyx.cn/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>{:C('BRAND_AGENT')}h5游戏开放平台</title>
+<meta name="description" content="moyx h5游戏开放平台为广大h5游戏开发者与渠道提供一站式的接入服务，致力于引进和传播手机原创游戏,为开发者提供完善的SDK快捷接入,为渠道商提供海量的h5游戏资源,及专属游戏展示平台，助您实现流量快速变现.">
+<meta name="keywords" content="{:C('BRAND_AGENT')},h5游戏开放平台">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/agent_huo.css">
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/agent_huo.js"></script>
+<!-- <script type="text/javascript" src="__PUBLIC__/js/jquery.SuperSlide.2.1.1.js"></script> -->
+<script type="text/javascript" src="__PUBLIC__/js/user.js"></script>
+
+</head>
+<body >
+	<!--登录弹窗-->
+	<div class="box_opacity"></div>
+
+	<form id="frmLogin" action="" method="post">
+
+		<div class="my_box login_box">
+			<div class="box_close"></div>
+			<div class="box_tit">{:C('BRAND_AGENT')}开放平台登录</div>
+			<ul>
+				<li>
+					<div class="text_out">
+						<span class="phone_ico"></span> <input type="text" class="box_tx1" value="请输入账号" onfocus="if(this.value==&#39;请输入账号&#39;){this.value=&#39;&#39;}" onblur="if(this.value==&#39;&#39;){this.value=&#39;请输入账号&#39;}" name="umobile" id="umobile">
+					</div>
+					<div class="error_font" id="log_mobile"></div>
+				</li>
+				<li>
+					<div class="text_out">
+						<span class="password_ico"></span> <input type="password" class="box_tx1" placeholder="请输入密码" onfocus="if(this.value==&#39;请输入密码&#39;){this.value=&#39;&#39;}" onblur="if(this.value==&#39;&#39;){this.value=&#39;请输入密码&#39;}" name="upasswd" id="upasswd">
+					</div>
+					<div class="error_font" id="log_password"></div>
+				</li>
+				<li><input type="button" class="box_bt" value="登录" onclick="login();"></li>
+				<li><div class="myforget">
+						<a href="javascript:;" class="a_forget">忘记密码？</a><a href="javascript:;" class="a1">注册</a>
+					</div></li>
+			</ul>
+		</div>
+	</form>
+
+	<form id="frmReg" method="post">
+		<!--注册弹窗-->
+		<div class="my_box register_box">
+			<div class="box_close"></div>
+			<div class="box_tit">{:C('BRAND_AGENT')}开放平台注册</div>
+			<ul>
+				<li>
+					<div class="text_out">
+						<span class="phone_ico"></span> <input type="text" class="box_tx1" value="请输入手机号码" onfocus="if(this.value==&#39;请输入手机号码&#39;){this.value=&#39;&#39;}" onblur="if(this.value==&#39;&#39;){this.value=&#39;请输入手机号码&#39;}" name="umobile" id="umobile">
+					</div>
+					<div class="error_font" id="reg_mobile"></div>
+				</li>
+				<li>
+					<div class="text_out">
+						<span class="yzm_ico"></span> <input type="text" class="box_tx1 box_tx2" value="请输入验证码" onfocus="if(this.value==&#39;请输入验证码&#39;){this.value=&#39;&#39;}" onblur="if(this.value==&#39;&#39;){this.value=&#39;请输入验证码&#39;}" name="yzm" id="yzm"> <em class="send_yzm" id="send_yzm">点击发送</em>
+						<!--点击以后class为new_send_yzm-->
+					</div>
+					<div class="error_font" id="msg_yzm"></div>
+				</li>
+				<li>
+					<div class="text_out">
+						<span class="password_ico"></span> <input type="password" class="box_tx1" placeholder="请输入6-15位字母或数字" name="upasswd1" id="upasswd1">
+
+					</div>
+					<div class="error_font" id="reg_passwd1"></div>
+				</li>
+				<li>
+					<div class="text_out">
+						<span class="password_ico"></span> <input type="password" class="box_tx1" placeholder="请重复密码" name="repasswd" id="upasswd2">
+					</div>
+					<div class="error_font"></div>
+				</li>
+				<li><input type="button" class="box_bt" value="注    册" onclick="register();"></li>
+
+			</ul>
+		</div>
+	</form>
+	<!--找回密码弹窗-->
+	<form id="frmFind" method="post">
+		<div class="my_box find_p_box">
+			<div class="box_close"></div>
+			<div class="box_tit">找回密码</div>
+			<ul>
+				<li>
+					<div class="text_out">
+						<span class="phone_ico"></span> <input type="text" class="box_tx1" value="请输入手机号码" onfocus="if(this.value==&#39;请输入手机号码&#39;){this.value=&#39;&#39;}" onblur="if(this.value==&#39;&#39;){this.value=&#39;请输入手机号码&#39;}" name="fmobile" id="fmobile">
+					</div>
+					<div class="error_font" id="find_mobile"></div>
+				</li>
+				<li>
+					<div class="text_out">
+						<span class="yzm_ico"></span> <input type="text" class="box_tx1 box_tx2" value="请输入验证码" onfocus="if(this.value==&#39;请输入验证码&#39;){this.value=&#39;&#39;}" onblur="if(this.value==&#39;&#39;){this.value=&#39;请输入验证码&#39;}" name="fyzm" id="fyzm"> <em class="send_yzm" id="fsend_yzm">点击发送</em>
+
+					</div>
+					<div class="error_font" id="f_yzm"></div>
+				</li>
+				<li>
+					<div class="text_out">
+						<span class="password_ico"></span> <input type="password" class="box_tx1" placeholder="请输入6-15位字母或数字" name="fpasswd" id="fpasswd">
+					</div>
+					<div class="error_font" id="find_passwd"></div>
+				</li>
+
+
+				<li><input type="button" class="box_bt" value="修改" onclick="findpwd();"></li>
+
+			</ul>
+		</div>
+	</form>
+
+	<!--完善资料-->
+	<form id="frmNext" method="post">
+		<div class="my_box complete_info">
+			<div class="box_close"></div>
+			<div class="box_tit">完善资料</div>
+			<dl>
+				<dd>
+					<p class="p1">渠道名称</p>
+					<input type="text" class="box_tx3" id="uname" name="uname"><span>*</span>
+				</dd>
+				<!--  <dd>
+					<p class="p1">手机号码</p>
+					<input type="text" class="box_tx3" id="mobilephone"
+						name="mobilephone"> <span>*</span>
+				</dd>-->
+				<dd>
+					<p class="p1">QQ号码</p>
+					<input type="text" class="box_tx3" id="qq" name="qq">  
+				</dd>
+				<dd>
+					<p class="p1">联系人</p>
+					<input type="text" class="box_tx3" id="linkman" name="linkman"> 
+				</dd>
+				<!--<dd>
+					<p class="p1">渠道工具</p>
+					<div class="com_info_sel">
+						<select id="channel_type" name="channel_type"><option value="1">微信公众号</option><option value="2">移动应用</option><option value="3">个人网站</option></select>
+					</div>
+					<input type="text" class="box_tx3 box_tx4" placeholder="请输入公众号名称" name="channel_text" id="channel_text"> 
+				</dd>-->
+				<dd>
+					<input type="button" class="box_bt" value="保    存" onclick="javascript:regnext();">
+				</dd>
+			</dl>
+		</div>
+	</form>
+
+	<!--头部-->
+	<div class="header">
+		<div class="general" >
+			<div class="logo">
+				<a href="{:U('Agent/Index/index')}"><img src="{:H5WEBSITE}/__PUBLIC__/images/logo.jpg"></a>
+			</div>
+			<div class="nav">
+				<dl>
+					<dd>
+					<a href="{:U('Agent/Index/index')}" <if condition="$flag eq 'index'"> class="on"</if>>首页</a> 
+					<a id="doc"  href="{:U('Agent/Doc/index')}" <if condition="$flag eq 'doc'"> class="on"</if>>合作文档</a>
+					<a id="column"  href="{:U('Agent/Manager/column')}" <if condition="$flag eq 'manager'"> class="on"</if>>管理中心</a> 
+					<a id="contact"  href="{:U('Agent/Doc/contact')}" <if condition="$flag eq 'contact'"> class="on"</if>>联系我们</a>
+					</dd>
+					<dt>
+ 					    <if condition="$Think.session.AGENT_ID neq ''">
+					       {$Think.session.agentname}<span>,欢迎回来<em>|</em></span><a href="{:U('Public/logout')}">退出</a>
+                        <else />
+						   <a href="javascript:;" class="a_login">登录</a><a href="javascript:;" class="a_register">注册</a>
+						</if>
+					</dt>
+				</dl>
+			</div>
+		</div>
+	</div>
+		<script>
+		$(function(){
+			var is_login = "{$Think.session.agentname}";
+			if(!is_login){
+				$("#doc").click(function(){
+					$(this).attr('href',"javascript:;");
+					$('.a_login').trigger('click');
+				});
+				
+				$("#column").click(function(){
+					$(this).attr('href',"javascript:;");
+					$('.a_login').trigger('click');
+				});
+				
+				$("#contact").click(function(){
+					$(this).attr('href',"javascript:;");				
+					$('.a_login').trigger('click');
+				});			
+			}
+		});
+	</script>

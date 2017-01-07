@@ -1,0 +1,93 @@
+<admintpl file="header" />
+<!-- 公用样式 -->
+<link href="__PUBLIC__/bootstrap-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
+<script src="__PUBLIC__/bootstrap-fileinput/js/fileinput_locale_zh.js" type="text/javascript"></script>
+<script src="__PUBLIC__/bootstrap-fileinput/js/fileinput_locale_es.js" type="text/javascript"></script>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('SplashScreen/index')}">wap闪屏图</a></li>
+			<li class="active"><a href="javascript:;">编辑闪屏图</a></li>
+		</ul>
+		<form enctype="multipart/form-data"   class="form-horizontal js-ajax-form" action="{:U('Admin/SplashScreen/editPost')}" method="post"> 
+			<input type="hidden" name='id' value="{$data.id}" />
+			<div class="row-fluid">
+				<div class="span9">
+					<table class="table table-bordered">
+					<tr>
+						<th>闪屏图名称</th>
+						<td>
+							<input type="text" name="name" value="{$data.name}" placeholder="闪屏图名称" />
+						</td>
+					</tr>
+					<tr>
+						<th>闪屏图<b style="color:red">(250*400)<b></th>
+						<td>
+							<input id="avatar" name="ads_image" type="file" class="file-loading" />
+						</td>
+					</tr>
+					<tr>
+						<th>显示时间</th>
+						<td>
+							<input type="text" name="show_time"  value="{$data.show_time}" >
+						</td>
+					</tr>
+					<tr>
+						<th>闪屏图状态</th>
+						<td>
+							<input type="radio" name="status" value="1" <if condition = "$data.statuskey eq 1">checked</if>>隐藏
+							<input type="radio" name="status" value="2" <if condition = "$data.statuskey eq 2">checked</if>>显示
+						</td>
+					</tr>						
+ 					<tr>
+						<th>URL(以http://开头)</th>
+						<td>
+							<input type="text" name="url" value="{$data.url}" style="width: 300px;" placeholder="以http://开头">
+						</td>
+					</tr>
+					</table>
+				</div>
+			</div>
+			<div class="form-actions">
+				<button class="btn btn-primary js-ajax-submit" type="submit">修改</button>
+				<a class="btn" href="{:U('Admin/SplashScreen/index')}">返回</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	
+	<script>
+		var btnCust = ''; 
+		$("#avatar").fileinput({
+			overwriteInitial: true,
+			maxFileSize: 1500,
+			showClose: false,
+			showCaption: false,
+			browseLabel: '',
+			removeLabel: '',
+			browseIcon: '<i class="fa fa-folder-open-o"></i>添加',
+			removeIcon: '<i class="fa fa-trash-o"></i>清除',
+			removeTitle: 'Cancel or reset changes',
+			elErrorContainer: '#kv-avatar-errors',
+			msgErrorClass: 'alert alert-block alert-danger',
+			defaultPreviewContent: '<img src="{$data.thumb}" alt="图片" style="width:160px">',
+			layoutTemplates: {main2: '{preview} ' +  btnCust + ' {remove} {browse}'},
+			allowedFileExtensions: ["jpg", "png", "gif"]
+		});
+
+		$("#input-pt-br").fileinput({
+			language: "zh",
+			uploadUrl: "/file-upload-batch/2",
+			maxFileCount: 5,
+			showUpload: false,
+			showCancel: false,
+			showCaption: false,
+			overwriteInitial: false,
+			dropZoneEnabled: false,
+			allowedFileExtensions: ["jpg","jpeg", "png", "gif"]
+		});
+	</script>
+</body>
+</html>

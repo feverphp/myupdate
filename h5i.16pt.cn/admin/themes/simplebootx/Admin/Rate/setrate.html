@@ -1,0 +1,83 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<form method="post" class="js-ajax-form">
+			<table class="table table-hover table-bordered table-list">
+				<tbody>
+					<tr>
+						<td>当前游戏:</td>
+						<td>
+						<foreach name="games" item="vo">
+						{$vo.app_id}-{$vo.gamename}| 
+						</foreach>
+						<td>共计游戏:{$gamecnt}款</td>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			&nbsp
+			<table class="table table-hover table-bordered table-list">
+				<tbody>
+					<tr>
+						<td>
+ 							<label class="radio">
+ 							<if condition="1 == $agent_game[rate_type] OR empty($agent_game[rate_type])">	
+ 								<input type="radio" checked id="rate_type" class="radio" name="rate_type" value="1" />固定分成
+ 							<else />
+ 								<input type="radio" id="rate_type" class="radio" name="rate_type" value="1" />固定分成
+ 							</if>
+							</label>
+						</td>
+						<td>
+							<input type="text" class="input" name="agent_rate" value="{$agent_game.agent_rate}">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			&nbsp
+			&nbsp
+			<table class="table table-hover table-bordered table-list">
+				<tr>
+				<td>
+					<label class="radio">
+						<if condition="2 == $agent_game[rate_type]">	
+							<input type="radio" checked  id="rate_type" class="radio" name="rate_type" value="2" />阶梯分成
+						<else />
+							<input type="radio"  id="rate_type" class="radio" name="rate_type" value="2" />阶梯分成
+						</if>
+					</label>
+				</td>
+				</tr>
+					<tr>
+						<td>第1阶梯</td>
+						<td>
+							<input type="text" class="input" name="" value="0" readonly="true">-
+							<input type="text" class="input" name="money[]" value="{$agent_game.money1}">
+						</td>
+						<td>
+							<input type="text" class="input" name="rate[]" value="{$agent_game.rate1}">
+						</td>
+					</tr>
+					<for start="2" end="9">
+						<tr>
+							<td>第{$i}阶梯</td>
+							<td>
+								<input type="text" class="input" name="" value="<?php $var='money'.($i-1); echo $agent_game[$var]; ?>" readonly="true">-
+								<input type="text" class="input" name="money[]" value="<?php $var='money'.$i; echo $agent_game[$var]; ?>">
+							</td>
+							<td>
+								<input type="text" class="input" name="rate[]" value="<?php $var='rate'.$i; echo $agent_game[$var]; ?>">
+							</td>
+						</tr>
+					</for>
+			</table>
+
+			<div class="form-actions">
+					<button type="submit" class="btn btn-primary js-ajax-submit">更新</button>
+					<!-- <a class="btn" href="__URL__">取消</a> -->
+			</div>
+		</form>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

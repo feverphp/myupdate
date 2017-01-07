@@ -1,0 +1,66 @@
+<include file="./admin/themes/simplebootx/Agent/header.html" />
+<div class="general">
+	<div class="db_local">
+		<a href="{:U('Index/index')}" class="local_home">首页</a><span>&gt;</span> 
+		<a href="{:U('Doc/index')}">合作文档</a><span>&gt;</span> 
+		<em>联系我们</em>
+	</div>
+	<!--左边菜单-->
+	<div class="left_menu" style="height: 530px;">
+		<dl>
+			<dd>
+				<a href="{:U('Doc/index')}" class="lc">接入流程</a>
+			</dd>
+			<dd>
+				<a href="{:U('Doc/faq')}" class="wt">常见问题</a>
+			</dd>
+			<dd  class="on"> 
+				<a href="{:U('Doc/contact')}" class="wm">联系我们</a>
+			</dd>
+		</dl>
+	</div>
+	<!--右侧-->
+	<div class="right_content">
+		<div class="cooper_tit">
+			<span>联系我们</span>
+		</div>
+		<div class="cooper_table">
+			<table cellpadding="0" cellspacing="0" width="100%" border="0">
+				<tbody><tr>
+					<td class="td1" valign="top"><span>1</span></td>
+					<td class="td2">
+
+						<div class="p3">商务合作</div>
+					
+						
+						<div class="contact contact_r">
+							联系人：<span>{$link_man|default="没有添加"}</span>
+						</div>
+						<div class="contact contact_q">
+							QQ：<span>{$qq}</span>
+						</div>
+						<div class="contact contact_m">
+							邮箱：<span>{$email}</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="td1" valign="top"><span>2</span></td>
+					<td class="td2">
+						<div class="p3">游戏客服</div>
+						<div class="contact contact_q">
+							QQ：<span>{$gameqq}</span>
+						</div>
+						<div class="contact contact_q">
+							QQ群：<span>{$groupqq}</span>
+						</div>
+					</td>
+				</tr>
+
+			</tbody></table>
+		</div>
+
+	</div>
+</div>
+
+<include file="./admin/themes/simplebootx/Agent/footer.html" />

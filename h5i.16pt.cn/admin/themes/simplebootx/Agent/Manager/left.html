@@ -1,0 +1,95 @@
+﻿	<div class="general" style="width: 1380px;">
+		<div class="db_local">
+			<a href="{:U('Index/index')}" class="local_home">首页</a><span>&gt;</span> 
+			<a href="{:U('Manager/column')}">管理中心</a><span>&gt;</span> 
+			<em>专栏合作</em>
+		</div>
+		<!-- <style>
+			.second_m{
+				display:none;
+			}
+			.second_m.second_m_on{
+				display:block;
+			}
+		</style> -->
+		<!--左边菜单-->
+		<div class="left_menu" >
+			<ul>
+				<li>
+					<div class="first_m">
+						<p class="a_manage">
+							游戏管理<span></span>
+						</p>
+					</div>
+					<div class="second_m">
+						<a href="{:U('Manager/column')}">专栏合作</a> 
+						<!-- 	<a href="{:U('Manager/membergamelist')}">游戏合作申请</a> 
+								<a href="{:U('Manager/nomembergamelist')}">合作游戏管理</a>  -->
+						<!--<a href="{:U('Manager/singlelist')}">单款游戏合作</a>-->
+					</div>
+				</li>
+ 				<li>
+					<div class="first_m">
+						<p class="a_messages">
+							渠道信息 <span></span>
+						</p>
+					</div>
+				 	<div class="second_m">
+						<a href="{:U('Manager/agent')}">渠道资料</a>
+					 	<a href="{:U('Manager/addbank')}">银行信息</a>
+						<a href="{:U('Manager/tixian')}">提现</a> 
+					</div>
+				</li> 
+				<li>
+					<div class="first_m">
+						<p class="a_messages">
+							平台币管理 <span></span>
+						</p>
+					</div>
+				 	<div class="second_m">
+						<a href="{:U('Recharge/MemberRechargePtb')}">充值平台币</a>
+						<a href="{:U('Recharge/MemberRechargePtbRecord')}">给玩家充值平台币记录</a>
+						<if condition="$user_type eq 'agent'">
+							<a href="{:U('Recharge/SubAgentRechargePtbRecord')}">给渠道充值平台币记录</a>
+						</if>
+					</div>
+				</li>
+				<if condition="$user_type eq 'agent'">
+				<li>
+					<div class="first_m">
+						<p class="a_messages">
+							渠道管理 <span></span>
+						</p>
+					</div>
+				 	<div class="second_m">
+				 		<a href="{:U('SubAgent/SubAgent')}">下级渠道列表</a>
+						<a href="{:U('SubAgent/SubAgentRateList')}">子渠道游戏分成设定</a>
+				 		<a href="{:U('SubAgent/RegisterSubAgent')}">添加下级渠道</a>
+						<a href="{:U('SubAgent/SubagentTixianList')}">子渠道提现申请表</a>
+					</div>
+				</li>
+				</if>
+				<li>
+					<div class="first_m">
+						<p class="a_count">
+							数据统计 <span></span>
+						</p>
+					</div>
+					<div class="second_m">
+					   <a href="{:U('Manager/daydata')}">每日数据</a> 
+						<a href="{:U('Manager/pay_details')}">充值明细</a> 
+						<a href="{:U('Manager/player_detail')}">玩家注册明细</a>
+<!-- 						<a href="{:U('Manager/statistics')}">游戏统计</a> 
+						<a href="{:U('Manager/channel')}">订单查询</a>
+						<a href="{:U('Manager/visitdata')}">访问数据</a> -->
+					</div>
+				</li>
+			</ul>
+		</div>
+<script>
+	window.addEventListener("load",function(){
+		$(".left_menu").css("height","auto");
+	},false);
+</script>
+		<!--右侧-->
+      

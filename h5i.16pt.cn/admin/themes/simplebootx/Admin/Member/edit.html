@@ -1,0 +1,111 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Admin/Member/index')}">玩家列表</a></li>
+			<li class="active"><a href="#">用户修改</a></li>
+		</ul>
+			<div class="row-fluid">
+				<div class="span9">
+					<table class="table table-bordered">
+					<tr>
+						<th>玩家ID</th>
+						<td>
+							{$id}
+						</td>
+					</tr>
+					<tr>
+						<th>玩家账号</th>
+						<td>
+							{$username}
+						</td>
+					</tr>
+					<tr>
+						<th>玩家昵称</th>
+						<td>
+							{$nickname}
+						</td>
+					</tr>
+					<tr>
+						<th>平台币历史总额</th>
+						<td>
+							{$totalcnt}
+						</td>
+					</tr>
+					<tr>
+						<th>平台币数量</th>
+						<td>
+							{$amount}
+						</td>
+					</tr>
+					<tr>
+						<th>性别</th>
+						<td>
+							{$sexes[$sex]}
+						</td>
+					</tr>
+					<tr>
+						<th>手机</th>
+						<td>
+							{$mobile}
+						</td>
+					</tr>
+					<tr>
+						<th>QQ</th>
+						<td>
+							{$QQ}
+						</td>
+					</tr>
+					<tr>
+						<th>账号来源</th>
+						<td>
+							{$device_from[$from]}
+						</td>
+					</tr>
+					<tr>
+						<th>密码</th>
+						<td>
+						<form method="post" class="form-horizontal js-ajax-form" action="{:U('Admin/Member/edit_post')}">
+							<input type="hidden" name="id"   value="{$id}" >
+							<input type="text" name="password" id="source" value="" placeholder="请输入修改的密码">
+							<button type="submit" class="btn btn-warning js-ajax-submit">更新</button>
+						</form>
+						</td>
+					</tr>
+					<tr>
+
+						<th>连续签到</th>
+
+						<td>
+
+							{$qd}天
+
+						</td>
+
+					</tr>
+
+					</table>
+				</div>
+			</div>
+					<table class="table table-hover table-bordered">
+			<thead>
+				<tr>					
+					<th>玩家登录的游戏</th>					
+					<th>玩家登录的时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="mgames" item="vo">
+				<tr>
+					<td>{$games.$vo[app_id]}</td>
+					<td>{$vo.create_time|date='Y-m-d  H:i:s',###}</td>
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$Page}</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

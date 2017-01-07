@@ -1,0 +1,59 @@
+<admintpl file="header" />
+<style type="text/css">
+.pic-list li {
+	margin-bottom: 5px;
+}
+</style>
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Admin/Agent/index')}">渠道管理</a></li>
+			<li class="active"><a href="#" target="_self">当前提现信息</a></li>
+		</ul>
+		<form action="{:U('Admin/Agentwithdraw/withdraw')}" method="post" class="form-horizontal js-ajax-form" enctype="multipart/form-data">
+			<div class="row-fluid">
+				<div class="span9">
+					<table class="table table-bordered">
+						<input type="hidden" name="agentid" id="agentid" value='{$agentid}' >
+						<tr>
+							<td>渠道编号:</td>
+							<td>{$agentid}</td>
+						</tr>
+						<tr>
+							<td>账号:</td>
+							<td>{$agentname}</td>
+						</tr>
+						<tr>
+							<td>总分成:</td>
+							<td>{$total_momey}</td>
+						</tr>
+						<tr>
+							<td>当前余额:</td>
+							<td>{$remain_money}</td>
+						</tr>
+						<tr>
+							<td>提现金额:</td>
+							<td><input type="text" name="money" id="money"  placeholder="请输入提现金额"></td>
+						</tr>
+						<tr>
+							<td>上次申请提现时间:</td>
+							<empty name='last_time'>
+								<td>从未提现</td>
+							<else />
+								<td>{$last_time|date="Y-m-d H:i:s", ###}</td>
+							</empty>
+						</tr>
+					</table>
+					
+				</div>
+			</div>
+			<div class="form-actions">
+				<button class="btn btn-primary js-ajax-submit" type="submit">提交</button>
+				<a class="btn" href="{:U('Admin/Agent/index')}">返回</a>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

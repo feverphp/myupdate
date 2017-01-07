@@ -1,0 +1,43 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#">热门游戏</a></li>
+			<li><a href="{:U('Admin/Hotgame/add')}">新增推荐</a></li>
+		</ul>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">序号</th>
+						<th>游戏名称</th>
+						<th>图片缩略图</th>
+						<th>游戏类型</th>
+						<th>URL</th>
+						<th>编辑时间</th>
+						<th>状态</th>
+						<th width="120">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="hotgames" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.gamename}</td>
+						<td><img src={$vo.thumb}  alt="{$vo.gamename}" /></td>
+						<td>{$vo.type|getGametype}</td>
+						<td>{$vo.url}</td>
+						<td>{$vo.update_time|date="Y-m-d H:i:s", ###}</td>
+						<td>{$adsstatus[$vo['status']]}</td>
+						<td>
+							<a href="{:U('Admin/Hotgame/edit',array('id'=>$vo['id']))}">{:L('EDIT')}</a> |
+							<a href="{:U('Admin/Hotgame/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:L('DELETE')}</a>				
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

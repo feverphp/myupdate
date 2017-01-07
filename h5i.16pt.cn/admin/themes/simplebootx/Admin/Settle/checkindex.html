@@ -1,0 +1,79 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#">待审核列表</a></li>
+			</ul>
+		<form class="well form-search" method="post" action="{:U('Admin/Settle/checkindex')}">
+			时间：
+			<input type="text" name="start_time" class="js-date" value="" style="width: 80px;" autocomplete="off">-
+			<input type="text" class="js-date" name="end_time" value="" style="width: 80px;" autocomplete="off"> &nbsp; &nbsp;
+			&nbsp;&nbsp;
+			银行名称： 
+			<select class="select_2" name="bankname" id="selected_id" style="width: 166px;">
+				<foreach name="banknames"  key="k" item="vo">
+					<php>$b_select=$vo==$formget['bankname'] ?"selected":"";</php>
+				<option value="{$vo}"{$b_select}>{$vo}</option>
+				</foreach>
+			</select>	
+			&nbsp;&nbsp;
+			渠道编号:
+			<input type="text" name="agent_id" style="width: 200px;" value="{$formget.agent_id}" placeholder="请输入渠道编号...">
+			
+			<br><br>
+			
+			渠道账号:
+			<input type="text" name="agentname" style="width: 200px;" value="{$formget.agentname}" placeholder="请输入渠道名称...">
+			&nbsp;&nbsp;
+			持卡人:
+			<input type="text" name="cardholder" style="width: 200px;" value="{$formget.cardholder}" placeholder="请输入持卡人...">
+			&nbsp;&nbsp;
+			卡号:
+			<input type="text" name="banknum" style="width: 200px;" value="{$formget.banknum}" placeholder="请输入银行卡号...">
+			&nbsp;&nbsp;
+			<input type="submit" class="btn btn-warning" value="搜索" />
+		</form>
+
+		<form class="J_ajaxForm" action="" method="post">
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">序号</th>
+						<th width="50">申请时间</th>
+						<th width="50">渠道编号</th>
+						<th width="50">账号</th>
+						<th width="50">结算金额(元)</th>
+						<th width="50">银行名称</th>
+						<th width="50">持卡人</th>
+						<th width="50">卡号</th>
+						<th width="50">状态</th>
+						<th width="60">管理操作</th>
+					</tr>
+				</thead>
+				<foreach name="settles" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.create_time|date="Y-m-d H:i:s", ###}</td>
+					<td>{$vo.agent_id}</td>
+					<td>{$vo.agentname}</td>
+					<td>{$vo.money}</td>
+					<td>{$vo.bankname}</td>
+					<td>{$vo.cardholder}</td>
+					<td>{$vo.banknum}</td>
+					<td>{$st_status[$vo[status]]}</td>
+					<td>
+						<a href="{:U('Admin/Settle/check',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="确定审核通过吗？">审核通过</a> |
+						<a href="{:U('Admin/Settle/checkfail',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="确定审核不通过吗？">审核不通过</a>
+					</td>
+				</tr>
+				</foreach>
+				
+			</table>
+			<div class="pagination">{$Page}</div>
+
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

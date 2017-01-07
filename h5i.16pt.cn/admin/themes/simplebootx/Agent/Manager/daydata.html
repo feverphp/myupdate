@@ -1,0 +1,187 @@
+<include file="./admin/themes/simplebootx/Agent/header.html" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+<link href="/public/css/open-egret.css" rel="stylesheet">
+<link rel="stylesheet" href="/public/css/bootstrap.min.css">
+<script type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
+     
+<div class="right_content" style="width: 1075px;">	
+	<div class="d_c_time">
+		<form action="{:U('Manager/daydata')}" method="post">
+			<span>时间：</span> 
+			<input id="start_date_s" type="text" class="Wdate" name="start_time" style="float: left;line-height: 30px;height: 30px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{$formget.start_time}"><em>~</em>
+			<input id="end_date_s" type="text" class="Wdate" name="end_time" style="float: left;line-height: 30px;height: 30px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{$formget.end_time}"> 
+								
+			<input type="submit" class="time_bt" value="搜索">&nbsp; &nbsp; 
+				<input type="submit" class="btn btn-primary" name="date_time" value="当天">&nbsp; &nbsp; 
+				
+			<input type="submit" class="btn btn-primary" name="date_time" value="昨天">&nbsp; &nbsp; 
+				
+			<input type="submit" class="btn btn-primary" name="date_time" value="当月">&nbsp; &nbsp; 
+				
+			<input type="submit" class="btn btn-primary" name="date_time" value="上月">&nbsp; &nbsp; 
+			<input type="submit" class="btn btn-primary" name="date_time" value="总计">
+			
+		</form>
+		
+	</div>
+
+		<div class="m-box">
+				<div class="row count-panel" >
+		            <div class="col-lg-4" style="    box-sizing: border-box;">
+		                <div class="frame">
+		                    <div class="col-xs-5">
+		                        <span class="icon-custom2 icon-user2"></span>
+		                    </div>
+		                    <div class="col-xs-7">
+		                        <small style="padding-top:10px;">累计玩家</small>
+		                        <strong class="s-c-blue" style="font-size:20px;padding-top:10px;">{$tj[0][wj]}</strong>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="col-lg-4" style="    box-sizing: border-box;">
+		                <div class="frame">
+		                    <div class="col-xs-5">
+		                        <span class="icon-custom2 icon-user3"></span>
+		                    </div>
+		                    <div class="col-xs-7">
+		                        <small style="padding-top:10px;">付费玩家</small>
+		                        <strong class="s-c-blue" style="font-size:20px;padding-top:10px;">{$tj[0][fh]}</strong>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="col-lg-4" style="    box-sizing: border-box;">
+		                <div class="frame">
+		                    <div class="col-xs-5">
+		                        <span class="icon-custom2 icon-money2"></span>
+		                    </div>
+		                    <div class="col-xs-7">
+		                        <small style="padding-top:10px;">累计流水</small>
+		                        <strong class="s-c-blue" style="font-size:20px;padding-top:10px;">{$tj[0][je]}</strong>
+		                    </div>
+		                </div>
+		            </div>
+				</div>
+			</div>
+
+<div id="main" style="height:400px;width:930px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+                    tooltip: {
+                         trigger: 'axis',
+                         axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                   type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                           }
+                    },
+                    
+                    legend: {
+                        data:['新增玩家','活跃玩家','充值玩家']
+                    },
+                     toolbox: {
+        show : true,
+        orient: 'vertical',
+        x: 'right',
+        y: 'center',
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            data : [{$date}]
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            "name":"新增玩家",
+                            "type":"bar",
+                            "data":[{$rc}]
+                        },
+                        {
+                            "name":"活跃玩家",
+                            "type":"bar",
+                            stack: '广告',
+                            "data":[{$uc}]
+                        },
+                        {
+                            "name":"充值玩家",
+                            "type":"bar",
+                            stack: '广告',
+                            "data":[{$pc}]
+                        }
+                    ]
+                };
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+    
+
+	<form class="js-ajax-form" action="" method="post">
+	<div class="s_g_table new_s_g_table">
+			<table cellpadding="0" cellspacing="0" width="100%" border="0">
+				<tbody>
+					<tr class="tr1">
+						<td class="td2">日期</td>
+						<td class="td2">游戏名称</td>
+						<td class="td2">新增玩家</td>
+						<td class="td2">活跃玩家</td>
+						<td class="td2">流水（元）</td>
+						<td class="td2">付费玩家</td>
+						<td class="td2">订单数</td>
+						<td class="td2">次日存留率</td>
+					</tr>
+				<foreach name="list" item="vo">
+				<tr>
+				<td>{$vo.date}</td>
+				<td>{$vo.name}</td>
+				<td>{$vo.reg_cnt}</td>
+				<td>{$vo.user_cnt}</td>
+				<td>{$vo.sum_money}</td>
+				<td>{$vo.pay_user_cnt}</td>
+				<td>{$vo.order_cnt}</td>
+				<td>{$vo.day2}</td>
+				</tr>
+				</foreach>
+				</tbody>
+			</table>
+
+			
+			<div class="pagination">{$Page}</div>
+		</form>
+	</div>
+ </div>
+ </div>
+<include file="./admin/themes/simplebootx/Agent/footer.html" />
+ 

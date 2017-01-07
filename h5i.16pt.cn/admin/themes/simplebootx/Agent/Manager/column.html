@@ -1,0 +1,103 @@
+<include file="./admin/themes/simplebootx/Agent/header.html" />
+<include file="./admin/themes/simplebootx/Agent/Manager/left.html" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.zclip.min.js"></script>
+
+<!--右侧-->
+<div class="right_content">
+	<div class="column_tit">专栏说明：</div>
+	<div class="column_font">精品专栏是{:C('BRAND_AGENT')}平台为广大渠道商们提供的一键式便利合作栏目。在这您可以获得{:C('BRAND_AGENT')}专门定制游戏栏目页面，您可以将专属于您的专栏链接放到您的产品上面，就可以实现精品游戏的展示跟游戏。并且{:C('BRAND_AGENT')}安排人员定期维护跟运营，实时提供当前最热门的游戏。</div>
+	<if condition="$user_status eq 1">
+		<div class="column_3_t">
+	 		<p class="p1">
+				您的PC端专栏地址：<span id="myurl">{$url}</span>
+			</p>
+			<p class="p2">
+				<span class="span1" onclick="look();">查看</span> 
+				<span class="span2" id="copyurl">复制</span>
+			</p>
+			<p class="p1">您的移动端专栏地址：<span id="myurl2">{$url2}</span></p>
+			<p class="p2">
+				<span class="span1" onclick="look2();">查看</span> 
+				<span class="span2" id="copyurl2">复制</span>
+			</p>
+			<p class="p1">您的移动端APP下载地址：<span id="myurl3">{$url3}</span></p>
+			<p class="p2">
+				<input id='downloadurl' type="hidden" name="downloadurl" value="{:U('Manager/subpackage',array('agent'=>$agent))}" />
+				<a href="javascript:;" id='download'><span class="span1">下载</span></a>
+			</p>
+		</div>
+	<else />
+		<div class="column_3_t">
+		<p class="p1">
+			您申请的账户暂未通过审核，请联系客服人员！
+		</p>
+		</div>
+	</if>
+	<div class="column_3_pic">
+		<img src="__PUBLIC__/images/column.jpg">
+	</div>
+</div>
+<script type="text/javascript">
+	$("#download").click(function(){
+		var url = $('#downloadurl').val();
+		window.location.href= url;
+	})
+function look()
+{
+		location.href="{$url}";
+}
+
+
+$(function(){         
+        var clip=null;        
+        clip = new ZeroClipboard.Client();
+        ZeroClipboard.setMoviePath( '/public/js/ZeroClipboard.swf' );  //和html不在同一目录需t设置seMoviePath
+        
+        clip.setHandCursor( true );
+        clip.setText( $("#myurl").text());
+        clip.addEventListener('complete', function (client, text) {
+          alert( "恭喜复制成功" );
+        });
+        clip.glue('copyurl');
+})
+
+function look2()
+
+{
+
+		location.href="{$url2}";
+
+}
+
+
+
+
+
+$(function(){         
+
+        var clip=null;        
+
+        clip = new ZeroClipboard.Client();
+
+        ZeroClipboard.setMoviePath( '/public/js/ZeroClipboard.swf' );  //和html不在同一目录需t设置seMoviePath
+
+        
+
+        clip.setHandCursor( true );
+
+        clip.setText( $("#myurl2").text());
+
+        clip.addEventListener('complete', function (client, text) {
+
+          alert( "恭喜复制成功" );
+
+        });
+
+        clip.glue('copyurl2');
+
+})
+
+</script> 
+
+<include file="./admin/themes/simplebootx/Agent/footer.html" />
+ 

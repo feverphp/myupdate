@@ -1,0 +1,88 @@
+﻿<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('Admin/Game/index')}">游戏列表</a></li>
+			<li><a href="{:U('Admin/Game/add')}">添加游戏</a></li>
+		</ul>
+
+		<form class="well form-search" method="post" action="{:U('Admin/Game/index')}">
+			<div class="search_type cc mb10">
+				<div class="mb10">
+					<span class="mr20">
+					        当前状态： 
+						<select class="select_2" name="gstatus" id="gstatus">
+								<foreach name="gamestatus"  key="k" item="vo">
+								<php>$gs_select=$k==$formget['gstatus'] ?"selected":"";</php>
+								<option value="{$k}"{$gs_select}>{$vo}</option>
+								</foreach>
+						</select>&nbsp;&nbsp;
+						游戏类型：
+						<select class="select_2" name="gtype" id="gtype">
+								<foreach name="gtypes"  key="k" item="vo">
+								<php>$gt_select=$k==$formget['gtype'] ?"selected":"";</php>
+								<option value="{$k}"{$gt_select}>{$vo}</option>
+								</foreach>
+						</select>&nbsp;&nbsp;
+						游戏名称： 
+						<input type="text" name="gname" style="width: 200px;" value="{$formget['gname']}" placeholder="请输入游戏名...">
+						<input type="submit" name="submit" class="btn btn-primary" value="搜索" />
+					</span>
+				</div>
+			</div>
+		</form>
+		<form class="J_ajaxForm" action="" method="post">
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>游戏名称</th>
+						<th>APPKEY</th>
+						<th>游戏类型</th>
+						<th>添加时间</th>
+						<th>上线时间</th>
+						<th>当前状态</th>
+						<th>管理操作</th>
+					</tr>
+				</thead>
+				<foreach name="games" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.name}</td>
+					<td>{$vo.appkey}</td>
+					<td>
+					{$vo.type|getGametype}
+					</td>
+					<td>{$vo.create_time|date='Y-m-d  H:i:s',###}</td>
+					<td>
+					<if condition="empty($vo[run_time]) OR 0==$vo[run_time]">
+						还未上线
+					<else />
+						{$vo.run_time|date='Y-m-d  H:i:s',###}
+					</if>
+					
+					</td>
+					<td>{$gamestatus[$vo['status']]}</td>
+					<td>
+						<a href="{:U('Admin/Game/edit',array('id'=>$vo['id']))}">编辑</a> | 
+						<a href="{:U('Admin/News/add',array('app_id'=>$vo['id']))}">新增资讯</a>
+				</tr>
+				</foreach>
+			</table>
+			<div class="pagination">{$Page}</div>
+
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		$(function() {
+
+			$("#navcid_select").change(function() {
+				$("#mainform").submit();
+			});
+
+		});
+	</script>
+</body>
+</html>

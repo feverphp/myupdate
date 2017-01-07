@@ -1,0 +1,69 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Admin/Settle/fcheckindex')}">待财务审核列表</a></li>
+			<li class="active"><a href="#" target="_self">结算操作</a></li>
+		</ul>
+		<form class="form-horizontal js-ajax-form" action="{:U('Admin/Settle/settle_post')}" method="post"> 
+			<div class="row-fluid">
+				<div class="span9">				
+					<table class="table table-bordered">
+						<tr>
+							<td><label>用户&nbsp;&nbsp;<b>{$nickname}(账号{$agentname})</b>&nbsp;&nbsp;提现金额&nbsp;&nbsp;<b>{$money}</b></label></td>
+						</tr>
+					</table>
+					<table class="table table-bordered">
+						<tr>
+							<td>
+								<label class="radio">
+									<input type="radio" name="flag" value="1" checked>结算完成
+								</label>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label class="radio">
+									<input type="radio" name="flag" value="2" checked>结算失败
+								</label>
+							</td>
+							
+							<td>
+								<label>原因：</lable>
+								<input type="text" name="failreason" value="{$failreason}">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label>是否返还金额到客户</label>
+							</td>
+							
+							<td>
+								<label class="radio inline" >
+									<input type="radio" name="is_return" value="1" checked>否
+								</label>
+								&nbsp;&nbsp;
+								&nbsp;&nbsp;
+								<label class="radio inline">
+									<input type="radio" name="is_return" value="2" checked>是
+								</label>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="form-actions">
+				<button class="btn btn-primary js-ajax-submit" type="submit">提交</button>
+				<a class="btn" href="{:U('Admin/Settle/fcheckindex')}">取消</a>
+			</div>
+			<input type="hidden" name="id" value="{$id}">
+			<input type="hidden" name="agentid" value="{$agent_id}">
+			<input type="hidden" name="action" value="settle">
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

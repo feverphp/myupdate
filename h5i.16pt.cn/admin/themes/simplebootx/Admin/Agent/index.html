@@ -1,0 +1,99 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#">渠道管理</a></li>
+			<li><a href="{:U('Admin/Agent/add')}" target="_self">添加渠道</a></li>
+			</ul>
+		<form class="well form-search" method="post" action="{:U('Admin/Agent/index')}">
+			<div class="search_type cc mb10">
+				<div class="mb10">
+					<span class="mr20">
+						账号：
+						<input id="user_login" type="text" name="username" style="width: 200px;" value="{$formget.username}" placeholder="请输入账号...">&nbsp; &nbsp;
+						
+						注册时间：
+						<input id="start_time" type="text" name="start_time"
+							class="js-datetime" value="{$formget.start_time|default=''}"
+							style="width: 150px;" autocomplete="off">
+						- 
+						<input id="end_time" type="text" class="js-datetime" name="end_time"
+							value="{$formget.end_time}" style="width: 150px;"
+							autocomplete="off">&nbsp;&nbsp;
+						<input type="submit" class="btn btn-primary" value="搜索" />&nbsp; &nbsp;
+					</span>
+				</div>
+			</div>
+		</form>
+		<php>$default_start = date('Y-m-d H:i:s',1467302400);$default_end=date('Y-m-d H:i:s');</php>
+		<form class="js-ajax-form" action="" method="post">
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">序号</th>
+						<th width="50">注册时间</th>
+						<th width="50">渠道编号</th>
+						<th width="50">账号</th>
+						<th width="50">累计玩家</th>
+						<th width="50">累计流水</th>
+						<th width="50">累计分成</th>
+						<th width="50">已提金额</th>
+						<th width="50">账户余额</th>
+						<th width="60">管理操作</th>
+						<th width="60">设定分成</th>
+					</tr>
+				</thead>
+				<foreach name="agents" item="vo" key="k">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.create_time|date="Y-m-d H:i:s", ###}</td>
+					<td>{$vo.id}</td>
+					<td>{$vo.user_login}</td>
+					<td>
+					
+					<if condition="$vo.reg_cnt eq NULL">
+						0
+					<else />
+						{$vo.reg_cnt}
+					</if>
+					</td>
+					<td>
+						{$vo[sum_money]}
+					</td>
+					<td>
+						{$vo[share_total]}
+					</td>
+					<td>
+						{$vo[share_total]-$vo[share_remain]}
+					</td>
+					<td>
+						{$vo[share_remain]}
+					</td>
+										
+					
+					
+					<td width='80px'>
+						<a id="editmsg" href="{:U('Admin/Agent/edit',array('id'=>$vo['id']))}">修改</a> |
+						<a href="{:U('Admin/Agentwithdraw/index',array('id'=>$vo['id']))}">提现</a> | 
+						<if condition="$vo['user_status'] eq 1">
+							<a href="{:U('Admin/Agent/ban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="确定要禁用吗？">禁用</a>
+						<else />
+							<a href="{:U('Admin/Agent/cancelban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="确定要启用吗？">启用</a>
+						</if> |
+						<a class="detail{$k} detail_btn" href="javascript:open_iframe_dialog('{:U('Admin/Agent/incomedetail',array('agent_id'=>$vo['id']))}','渠道流水详情')" agent_id="{$vo['id']}">详情</a>
+					</td>
+					<td>
+						<a href="{:U('Admin/Rate/rate',array('id'=>$vo['id']))}">设定分成</a>
+					</td>
+				</tr>
+				</foreach>
+				
+			</table>
+			<div class="pagination">{$Page}</div>
+
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>
